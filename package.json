@@ -1,0 +1,25 @@
+{
+  "name": "churros-sauce",
+  "version": "0.0.0",
+  "description": "The special sauce for churros",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloud-elements/churros-sauce.git"
+  },
+  "author": "jjwyse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cloud-elements/churros-sauce/issues"
+  },
+  "homepage": "https://github.com/cloud-elements/churros-sauce",
+  "dependencies": {
+    "mocha": "^4.0.0"
+  }
+}

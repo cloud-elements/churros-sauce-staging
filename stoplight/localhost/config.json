@@ -1,0 +1,29 @@
+{
+  "port": "4010",
+  "apiPort": "4011",
+  "forwardHost": "http://localhost:8080",
+  "basePath": "/elements/api-v2",
+  "startupMessage": "Cloud Elements Snapshot Proxy Initialized",
+  "log": true,
+  "debug": true,
+  "learn": true,
+  "mock": {
+    "enabled": false,
+    "dynamic": false
+  },
+  "logLocation": "https://api.stoplight.io/v1",
+  "blacklist": {
+    "headers": [],
+    "queryString": []
+  },
+  "stoplight": {
+    "userSecret": "e59btE7yvZHfhDooT",
+    "versionSecret": "bskm8cd6sjeivwbtq"
+  },
+  "sslCert": null,
+  "sslKey": null,
+  "basePath": null,
+  "beforeScript": "function(ctx, request) {\n  // This runs your endpoint middleware before script, if applicable.\n  // Removing this means your endpoint before scripts will not be run!\n  SL.runEndpoint();\n}",
+  "afterScript": "function(ctx, request, response) {\n  // This runs your endpoint middleware after script, if applicable.\n  // Removing this means your endpoint after scripts will not be run!\n  SL.runEndpoint();\n}",
+  "variables": {}
+}

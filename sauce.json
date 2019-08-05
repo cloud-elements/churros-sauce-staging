@@ -1,0 +1,21 @@
+{
+  "user": "system",
+  "password": "system",
+  "url": "http://localhost:8080",
+  "oauth.callback.url": "https://httpbin.org/get",
+  "event.callback.url": "https://knappkeith.pythonanywhere.com/request/{{random.uuid}}/",
+  "ngrok.auth.token": "7e47jaeTd2tqsHk2s7r5d_6Fs52r1Q2DZ3bhqeAc6gA",
+  "events": {
+    "load": 5,
+    "wait": 60,
+    "element": "sfdc",
+    "port": 8999,
+    "load.element": "sfdc",
+    "load.instances": 1,
+    "load.load": 50,
+    "load.wait": 120
+  },
+  "bulk": {
+    "element": "hubspotcrm"
+  }
+}
