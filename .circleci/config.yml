@@ -1,22 +1,280 @@
-version: 2
+####################
+###### Aliases #####
+####################
+x-aliases:
+  ####### churros jobs setup #######
+  - churros-build-setup: &churros-build-setup
+      working_directory: ~/cloud-elements/churros-sauce-staging
+      parallelism: 1
+      shell: /bin/bash --login
+      environment:
+        CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+        CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
+        ENVIRONMENT: stg
+      docker:
+        - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
+          command: /sbin/init
+  ####### workflow job settings #######
+  - ctx: &ctx
+      context: soba-notifs
+  - fltr: &fltr
+      filters:
+        branches:
+          only: master
+  - initialjob: &initialjob
+      <<: *ctx
+      <<: *fltr
+  - tests: &testjob
+      <<: *ctx
+      <<: *fltr
+      requires:
+        - workflow-setup
+  - wrapupjob: &wrapupjob
+      context: soba-notifs
+      requires:
+        - churros_tests_8
+        - qaautomation_tests
+
+###############################################################
+####################### CircleCI Config #######################
+###############################################################
+version: 2.1
+commands:
+  churros:
+    parameters:
+      test_name:
+        type: string
+      exclude:
+        type: boolean
+        default: false
+      action:
+        type: string
+        default: on_success
+    steps:
+      - unless:
+          condition: << parameters.exclude >>
+          steps:
+            - run:
+                name: << parameters.test_name >>
+                command: ./circleci/run_churros_suite.sh << parameters.test_name >>
+                when: << parameters.action >>
+
+  churros_always:
+    parameters:
+      test_name:
+        type: string
+      exclude:
+        type: boolean
+        default: false
+    steps:
+        - churros: { test_name: << parameters.test_name >>, exclude: << parameters.exclude >>,  action: always }
+
+  install-1pass:
+    steps:
+      - run:
+          name: install 1password-cli
+          command: |
+            curl -s -L -O https://raw.githubusercontent.com/cloud-elements/onepass/master/linux/op
+            chmod a+x op
+            ln -s $PWD/op /home/ubuntu/bin/op
+
+  install-node:
+    steps:
+      - run:
+          command: nvm install 8.10.0 && nvm alias default 8.10.0
+
+  churros-setup:
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: setup job from workspace
+          command: |
+            mv ~/workspace/cloud-elements/churros ~/cloud-elements
+            mv ~/workspace/cloud-elements/.churros ~/workspace/cloud-elements/stopandfix ~/workspace/cloud-elements/slack-cli ~/
+      - run:
+          working_directory: ~/cloud-elements/churros-sauce
+          command: mkdir -p "${CIRCLE_ARTIFACTS}" "${CIRCLE_TEST_REPORTS}/platform" "${CIRCLE_TEST_REPORTS}/elements"
+      - install-node
+      - run:
+          working_directory: ~/cloud-elements/churros
+          command: npm link
+      - run:
+          name: Create results directory
+          command: mkdir ~/test_results
+
+
+  churros-rules:
+    steps:
+      - store_test_results:
+          path: /tmp/circleci-test-results
+      # Save artifacts
+      - store_artifacts:
+          path: /tmp/circleci-artifacts
+      - store_artifacts:
+          path: /tmp/circleci-test-results
+
 jobs:
-  one:
+  workflow-setup:
+    working_directory: ~/cloud-elements/churros-sauce
+    parallelism: 1
+    shell: /bin/bash --login
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
+      ENVIRONMENT: stg
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
+        command: /sbin/init
     steps:
       - checkout
-      - run: echo "A first hello"
-      - run: sleep 25
-  two:
+      - attach_workspace:
+          at: ~/workspace
+      - install-1pass
+      - restore_cache:
+          keys:
+            # This branch if available
+            - v2-dep-{{ .Branch }}-
+            # Default branch if not
+            - v2-dep-master-
+            # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+            - v2-dep-
+      - install-node
+      - run:
+          name: install churros
+          command: |
+                git clone https://github.com/cloud-elements/churros.git ../churros
+                pushd ../churros && npm install && npm link
+                npm run globalinstall
+      - save_cache:
+          key: v2-dep-{{ .Branch }}-{{ epoch }}
+          paths:
+            - ./node_modules
+      - run:
+          name: install slack cli
+          command: |
+              git clone https://github.com/cloud-elements/slack-cli.git
+              mv slack-cli ~/cloud-elements
+      - run:
+          when: always
+          name: churros init
+          command: ./circleci/churros_init.sh ${ENVIRONMENT}
+      - stop-and-fix: {}
+      - run : mv ~/.churros ~/cloud-elements
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - cloud-elements
+
+  qaautomation_tests:
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: circleci/python
+    parallelism: 1
+    working_directory: ~/churros-sauce
+
     steps:
       - checkout
-      - run: echo "A more familiar hi"
-      - run: sleep 15
+      - setup_remote_docker
+      - attach_workspace:
+          at: ~/workspace
+      - run: git clone https://github.com/cloud-elements/qaAutomation.git ~/qaAutomation
+
+      - run:
+          name: Login to dockerhub
+          command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run:
+          name: move stopandfix & slack-cli from workspace
+          command: mv ~/workspace/cloud-elements/slack-cli ~/workspace/cloud-elements/stopandfix ~/
+      - run:
+          name: Start test container
+          command: |
+            docker run -it -d --name qa-auto cloudelements/qa-automation:latest
+
+      - run:
+          name: Copy latest repo into test container
+          command: |
+            docker cp ~/qaAutomation/src/. qa-auto:/qaAutomation/src
+            docker cp ~/qaAutomation/tests/. qa-auto:/qaAutomation/tests
+            docker cp ~/qaAutomation/pytest.ini qa-auto:/qaAutomation/pytest.ini
+            docker cp ~/qaAutomation/requirements.txt qa-auto:/qaAutomation/requirements.txt
+            docker cp ~/workspace/cloud-elements/.churros/sauce.json qa-auto:/qaAutomation/sauce.json
+
+      - run:
+          name: Ensure all requirements are installed in container
+          command: |
+            docker exec qa-auto pip3 install -r /qaAutomation/requirements.txt
+
+      - run:
+          name: Make reports directories
+          command: |
+            docker exec qa-auto mkdir test-results
+            docker exec qa-auto mkdir test-results/metrics-results
+            docker exec qa-auto mkdir test-results/bulk-results
+
+      # run tests
+      - run:
+          name: Run metrics tests
+          command: |
+            mkdir test-results
+            mkdir test-results/metrics-results
+            docker exec qa-auto pytest tests/platform/metrics -vv --junitxml=test-results/metrics-results/results.xml --html=test-results/metrics-results/results.html --self-contained-html --run-slow --tests-per-worker auto --browser=chrome-headless
+          no_output_timeout: 1h
+          working_directory: ~/qaAutomation
+          when: always
+
+
+      # store metrics results
+      - run:
+          name: Store metrics tests results
+          command: |
+            docker cp qa-auto:/qaAutomation/test-results/metrics-results/results.xml test-results/metrics-results
+            docker cp qa-auto:/qaAutomation/test-results/metrics-results/results.html test-results/metrics-results
+          when: always
+          working_directory: ~/qaAutomation
+
+      - store_test_results:
+          path: ~/qaAutomation/test-results/metrics-results
+
+      - store_artifacts:
+          path: ~/qaAutomation/test-results/metrics-results
+
+
+  churros_tests_8:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/chargebee }
+      - churros: { test_name: elements/kissmetrics }
+      - churros: { test_name: elements/taxify }
+      - churros: { test_name: elements/sailthru }
+      - churros: { test_name: elements/eventmobiv1 }
+      - churros-rules
+  # it is expected that this job only runs if all tests pass
+  handle_all_pass:
+    docker:
+      - image: circleci/python
+    working_directory: ~/churros-sauce
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: get slack-cli from workspace
+          command: mv ~/workspace/cloud-elements/slack-cli ~/
+      - run:
+          name: configure git
+          command: git config --global user.email "developer@cloud-elements.com"; git config --global user.name "cecircleci"
+
 workflows:
   version: 2
-  one_and_two:
+  staging_tests:
     jobs:
-      - one
-      - two
+      - workflow-setup:
+          <<: *initialjob
+      - churros_tests_8:
+          <<: *testjob
+      - qaautomation_tests:
+          <<: *testjob
+      - handle_all_pass:
+          <<: *wrapupjob
