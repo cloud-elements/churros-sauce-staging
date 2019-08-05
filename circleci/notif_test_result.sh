@@ -6,8 +6,8 @@ set -xe
 # - required that stopandfix binary is at ~/stopandfix and slack-cli binary at ~/slack-cli/src/slack
 #
 
-NOTIF_CHANNEL_QA='#qa-results'
-STOPNFIX=1
+NOTIF_CHANNEL_QA='#staging-stop-and-fix'
+STOPNFIX=0
 
 # gather context
 if [ "$1" != "PASS" ] && [ "$1" != "FAIL" ]; then
