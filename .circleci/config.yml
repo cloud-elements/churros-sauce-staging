@@ -94,7 +94,7 @@ commands:
             mv ~/workspace/cloud-elements/churros ~/cloud-elements
             mv ~/workspace/cloud-elements/.churros ~/workspace/cloud-elements/slack-cli ~/
       - run:
-          working_directory: ~/cloud-elements/churros-sauce
+          working_directory: ~/cloud-elements/churros-sauce-staging
           command: mkdir -p "${CIRCLE_ARTIFACTS}" "${CIRCLE_TEST_REPORTS}/platform" "${CIRCLE_TEST_REPORTS}/elements"
       - install-node
       - run:
@@ -117,7 +117,7 @@ commands:
 
 jobs:
   workflow-setup:
-    working_directory: ~/cloud-elements/churros-sauce
+    working_directory: ~/cloud-elements/churros-sauce-staging
     parallelism: 1
     shell: /bin/bash --login
     environment:
@@ -170,7 +170,7 @@ jobs:
     docker:
       - image: circleci/python
     parallelism: 1
-    working_directory: ~/churros-sauce
+    working_directory: ~/churros-sauce-staging
 
     steps:
       - checkout
@@ -250,7 +250,7 @@ jobs:
   handle_all_pass:
     docker:
       - image: circleci/python
-    working_directory: ~/churros-sauce
+    working_directory: ~/churros-sauce-staging
     steps:
       - checkout
       - attach_workspace:
