@@ -92,7 +92,7 @@ commands:
           name: setup job from workspace
           command: |
             mv ~/workspace/cloud-elements/churros ~/cloud-elements
-            mv ~/workspace/cloud-elements/.churros ~/workspace/cloud-elements/stopandfix ~/workspace/cloud-elements/slack-cli ~/
+            mv ~/workspace/cloud-elements/.churros ~/workspace/cloud-elements/slack-cli ~/
       - run:
           working_directory: ~/cloud-elements/churros-sauce
           command: mkdir -p "${CIRCLE_ARTIFACTS}" "${CIRCLE_TEST_REPORTS}/platform" "${CIRCLE_TEST_REPORTS}/elements"
@@ -160,7 +160,6 @@ jobs:
           when: always
           name: churros init
           command: ./circleci/churros_init.sh ${ENVIRONMENT}
-      - stop-and-fix: {}
       - run : mv ~/.churros ~/cloud-elements
       - persist_to_workspace:
           root: ~/
@@ -183,9 +182,6 @@ jobs:
       - run:
           name: Login to dockerhub
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run:
-          name: move stopandfix & slack-cli from workspace
-          command: mv ~/workspace/cloud-elements/slack-cli ~/workspace/cloud-elements/stopandfix ~/
       - run:
           name: Start test container
           command: |
