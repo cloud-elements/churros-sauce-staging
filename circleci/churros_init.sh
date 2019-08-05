@@ -7,7 +7,7 @@ case "$1" in
   ;;
   staging|stg)
     echo 'Initializing churros to run tests against staging...'
-    churros init --user 'churros@churros.com' --password 'elements1' --url 'https://staging.cloud-elements.com' --template ~/cloud-elements/churros-sauce/-staging/sauce.json --1pass --1pass-element all
+    churros init --user 'churros@churros.com' --password 'elements1' --url 'https://staging.cloud-elements.com' --template ~/cloud-elements/churros-sauce-staging/sauce.json --1pass --1pass-element all
   ;;
   production|prod)
     echo 'Initializing churros to run tests against staging...'
