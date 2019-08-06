@@ -291,121 +291,121 @@ jobs:
       - churros: { test_name: platform/saml }
       - churros-rules
 
-    churros_tests_3:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-        - churros: { test_name: platform/provisioning }
-        - churros: { test_name: platform/usage }
-        - churros: { test_name: platform/applications }
-        - churros: { test_name: platform/docs }
-        - churros-rules
-
-    churros_tests_4:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-        - churros: { test_name: elements/box, exclude: true}
-        - churros: { test_name: elements/hubspotcrm, exclude: true}
-        - churros: { test_name: elements/marketo}
-        - churros: { test_name: elements/zendesk, exclude: true }
-        - churros: { test_name: elements/eloqua}
-        - churros-rules
-
-    churros_tests_5:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-        - churros: { test_name: elements/dynamicscrmadfs }
-        - churros-rules
-
-    churros_tests_6:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-        - churros: { test_name: elements/sapc4chd }
-        - churros: { test_name: elements/taleobusiness}
-        - churros-rules
-
-    churros_tests_7:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-
-        - churros: { test_name: elements/pardot}
-        - churros: { test_name: elements/successfactors }
-        - churros: { test_name: elements/netsuitecrmv2, exclude: true}
-        - churros: { test_name: elements/sfdcservicecloud, exclude: true}
-        - churros: { test_name: elements/sfdc, exclude: true}
-        - churros-rules
-
-    churros_tests_8:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-        - churros: { test_name: elements/salesforcemarketingcloud }
-        - churros: { test_name: elements/brighttalk }
-        - churros: { test_name: elements/sendgrid }
-        - churros: { test_name: elements/servicenow, exclude: true  }
-        - churros: { test_name: elements/shopify, exclude: true   }
-        - churros-rules
-    churros_tests_9:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-        - churros: { test_name: elements/sapc4ccrm }
-        - churros: { test_name: elements/sageone, exclude: true}
-        - churros-rules
-
-    churros_tests_10:
-      <<: *churros-build-setup
-      steps:
-        - churros-setup
-        - churros: { test_name: elements/brighttalk }
-        - churros: { test_name: elements/sendgrid }
-        - churros: { test_name: elements/servicenow, exclude: true  }
-        - churros: { test_name: elements/shopify, exclude: true   }
-        - churros-rules
-
-  churros_tests_11:
+  churros_tests_3:
     <<: *churros-build-setup
     steps:
       - churros-setup
-      - churros: { test_name: elements/chargebee }
-      - churros: { test_name: elements/kissmetrics }
-      - churros: { test_name: elements/taxify }
-      - churros: { test_name: elements/sailthru }
-      - churros: { test_name: elements/eventmobiv1 }
-      - churros: { test_name: elements/actessentialsoauth, exclude: true }
-      - churros: { test_name: elements/bigcommerce, exclude: true }
-      - churros: { test_name: elements/zohocrm, exclude: true }
-      - churros: { test_name: elements/chargify, exclude: true }
-      - churros: { test_name: elements/dropboxv2, exclude: true }
-      - churros: { test_name: elements/dropboxbusinessv2, exclude: true }
-      - churros: { test_name: elements/etsy, exclude: true }
-      - churros: { test_name: elements/expensify, exclude: true }
-      - churros: { test_name: elements/fieldawarev2, exclude: true }
-      - churros: { test_name: elements/freshdeskv2, exclude: true }
-      - churros: { test_name: elements/googledrive, exclude: true }
-      - churros: { test_name: elements/hubspot, exclude: true }
-      - churros: { test_name: elements/mailchimpv3, exclude: true }
-      - churros: { test_name: elements/mysql, exclude: true }
-      - churros: { test_name: elements/netsuiteerpv2, exclude: true }
-      - churros: { test_name: elements/netsuitefinancev2, exclude: true }
-      - churros: { test_name: elements/onedrive, exclude: true }
-      - churros: { test_name: elements/onedrivebusiness, exclude: true }
-      - churros: { test_name: elements/onedrivev2, exclude: true }
-      - churros: { test_name: elements/quickbooks, exclude: true }
-      - churros: { test_name: elements/readytalk, exclude: true }
-      - churros: { test_name: elements/readytalkilluminate, exclude: true }
-      - churros: { test_name: elements/servicenowoauth, exclude: true }
-      - churros: { test_name: elements/sharefile, exclude: true }
-      - churros: { test_name: elements/stripe, exclude: true }
-      - churros: { test_name: elements/sqlserver, exclude: true }
-      - churros: { test_name: elements/twiliov2, exclude: true }
-      - churros: { test_name: elements/twitter, exclude: true }
-      - churros: { test_name: elements/woocommercerest, exclude: true }
+      - churros: { test_name: platform/provisioning }
+      - churros: { test_name: platform/usage }
+      - churros: { test_name: platform/applications }
+      - churros: { test_name: platform/docs }
       - churros-rules
+
+  churros_tests_4:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/box, exclude: true}
+      - churros: { test_name: elements/hubspotcrm, exclude: true}
+      - churros: { test_name: elements/marketo}
+      - churros: { test_name: elements/zendesk, exclude: true }
+      - churros: { test_name: elements/eloqua}
+      - churros-rules
+
+  churros_tests_5:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/dynamicscrmadfs }
+      - churros-rules
+
+  churros_tests_6:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/sapc4chd }
+      - churros: { test_name: elements/taleobusiness}
+      - churros-rules
+
+  churros_tests_7:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+
+      - churros: { test_name: elements/pardot}
+      - churros: { test_name: elements/successfactors }
+      - churros: { test_name: elements/netsuitecrmv2, exclude: true}
+      - churros: { test_name: elements/sfdcservicecloud, exclude: true}
+      - churros: { test_name: elements/sfdc, exclude: true}
+      - churros-rules
+
+  churros_tests_8:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/salesforcemarketingcloud }
+      - churros: { test_name: elements/brighttalk }
+      - churros: { test_name: elements/sendgrid }
+      - churros: { test_name: elements/servicenow, exclude: true  }
+      - churros: { test_name: elements/shopify, exclude: true   }
+      - churros-rules
+  churros_tests_9:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/sapc4ccrm }
+      - churros: { test_name: elements/sageone, exclude: true}
+      - churros-rules
+
+  churros_tests_10:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/brighttalk }
+      - churros: { test_name: elements/sendgrid }
+      - churros: { test_name: elements/servicenow, exclude: true  }
+      - churros: { test_name: elements/shopify, exclude: true   }
+      - churros-rules
+
+churros_tests_11:
+  <<: *churros-build-setup
+  steps:
+    - churros-setup
+    - churros: { test_name: elements/chargebee }
+    - churros: { test_name: elements/kissmetrics }
+    - churros: { test_name: elements/taxify }
+    - churros: { test_name: elements/sailthru }
+    - churros: { test_name: elements/eventmobiv1 }
+    - churros: { test_name: elements/actessentialsoauth, exclude: true }
+    - churros: { test_name: elements/bigcommerce, exclude: true }
+    - churros: { test_name: elements/zohocrm, exclude: true }
+    - churros: { test_name: elements/chargify, exclude: true }
+    - churros: { test_name: elements/dropboxv2, exclude: true }
+    - churros: { test_name: elements/dropboxbusinessv2, exclude: true }
+    - churros: { test_name: elements/etsy, exclude: true }
+    - churros: { test_name: elements/expensify, exclude: true }
+    - churros: { test_name: elements/fieldawarev2, exclude: true }
+    - churros: { test_name: elements/freshdeskv2, exclude: true }
+    - churros: { test_name: elements/googledrive, exclude: true }
+    - churros: { test_name: elements/hubspot, exclude: true }
+    - churros: { test_name: elements/mailchimpv3, exclude: true }
+    - churros: { test_name: elements/mysql, exclude: true }
+    - churros: { test_name: elements/netsuiteerpv2, exclude: true }
+    - churros: { test_name: elements/netsuitefinancev2, exclude: true }
+    - churros: { test_name: elements/onedrive, exclude: true }
+    - churros: { test_name: elements/onedrivebusiness, exclude: true }
+    - churros: { test_name: elements/onedrivev2, exclude: true }
+    - churros: { test_name: elements/quickbooks, exclude: true }
+    - churros: { test_name: elements/readytalk, exclude: true }
+    - churros: { test_name: elements/readytalkilluminate, exclude: true }
+    - churros: { test_name: elements/servicenowoauth, exclude: true }
+    - churros: { test_name: elements/sharefile, exclude: true }
+    - churros: { test_name: elements/stripe, exclude: true }
+    - churros: { test_name: elements/sqlserver, exclude: true }
+    - churros: { test_name: elements/twiliov2, exclude: true }
+    - churros: { test_name: elements/twitter, exclude: true }
+    - churros: { test_name: elements/woocommercerest, exclude: true }
+    - churros-rules
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
     docker:
