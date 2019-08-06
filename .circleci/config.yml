@@ -32,6 +32,13 @@ x-aliases:
   - wrapupjob: &wrapupjob
       context: soba-notifs
       requires:
+        - churros_tests_1
+        - churros_tests_2
+        - churros_tests_3
+        - churros_tests_4
+        - churros_tests_5
+        - churros_tests_6
+        - churros_tests_7
         - churros_tests_8
         - qaautomation_tests
 
@@ -270,18 +277,121 @@ jobs:
       - store_artifacts:
           path: ~/qaAutomation/test-results/metrics-results
 
-  churros_tests_8:
+  churros_tests_1:
     <<: *churros-build-setup
     steps:
       - churros-setup
-      - churros: { test_name: elements/actessentialsoauth, exclude: true }
-      - churros: { test_name: elements/bigcommerce, exclude: true }
-      - churros: { test_name: elements/zohocrm, exclude: true }
+      - churros: { test_name: platform/hubs }
+      - churros: { test_name: platform/general }
+      - churros: { test_name: platform/jobs }
+      - churros: { test_name: platform/notifications }
+      - churros: { test_name: platform/transformations, exclude: true }
+      - churros: { test_name: platform/lbdocs, exclude: true }
+      - churros: { test_name: platform/elementbuilder, exclude: true }
+      - churros: { test_name: platform/events, exclude: true }
+      - churros: { test_name: platform/elements, exclude: true }
+      - churros: { test_name: platform/bulk, exclude: true }
+      - churros: { test_name: platform/publishing, exclude: true }
+      - churros-rules
+
+  churros_tests_2:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: platform/organizations }
+      - churros: { test_name: platform/signup }
+      - churros: { test_name: platform/users }
+      - churros: { test_name: platform/accounts }
+      - churros: { test_name: platform/saml }
+
+    churros_tests_3:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+        - churros: { test_name: platform/provisioning }
+        - churros: { test_name: platform/usage }
+        - churros: { test_name: platform/applications }
+        - churros: { test_name: platform/docs }
+        - churros-rules
+
+    churros_tests_4:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+        - churros: { test_name: elements/box, exclude: true}
+        - churros: { test_name: elements/hubspotcrm, exclude: true}
+        - churros: { test_name: elements/marketo}
+        - churros: { test_name: elements/zendesk, exclude: true }
+        - churros: { test_name: elements/eloqua}
+        - churros-rules
+
+    churros_tests_5:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+        - churros: { test_name: elements/dynamicscrmadfs }
+        - churros-rules
+
+    churros_tests_6:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+        - churros: { test_name: elements/sapc4chd }
+        - churros: { test_name: elements/taleobusiness}
+        - churros-rules
+
+    churros_tests_7:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+
+        - churros: { test_name: elements/pardot}
+        - churros: { test_name: elements/successfactors }
+        - churros: { test_name: elements/netsuitecrmv2, exclude: true}
+        - churros: { test_name: elements/sfdcservicecloud, exclude: true}
+        - churros: { test_name: elements/sfdc, exclude: true}
+        - churros-rules
+
+    churros_tests_8:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+        - churros: { test_name: elements/salesforcemarketingcloud }
+        - churros: { test_name: elements/brighttalk }
+        - churros: { test_name: elements/sendgrid }
+        - churros: { test_name: elements/servicenow, exclude: true  }
+        - churros: { test_name: elements/shopify, exclude: true   }
+        - churros-rules
+    churros_tests_9:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+        - churros: { test_name: elements/sapc4ccrm }
+        - churros: { test_name: elements/sageone, exclude: true}
+        - churros-rules
+
+    churros_tests_10:
+      <<: *churros-build-setup
+      steps:
+        - churros-setup
+        - churros: { test_name: elements/brighttalk }
+        - churros: { test_name: elements/sendgrid }
+        - churros: { test_name: elements/servicenow, exclude: true  }
+        - churros: { test_name: elements/shopify, exclude: true   }
+        - churros-rules
+
+  churros_tests_11:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
       - churros: { test_name: elements/chargebee }
       - churros: { test_name: elements/kissmetrics }
       - churros: { test_name: elements/taxify }
       - churros: { test_name: elements/sailthru }
       - churros: { test_name: elements/eventmobiv1 }
+      - churros: { test_name: elements/actessentialsoauth, exclude: true }
+      - churros: { test_name: elements/bigcommerce, exclude: true }
+      - churros: { test_name: elements/zohocrm, exclude: true }
       - churros: { test_name: elements/chargify, exclude: true }
       - churros: { test_name: elements/dropboxv2, exclude: true }
       - churros: { test_name: elements/dropboxbusinessv2, exclude: true }
@@ -328,11 +438,31 @@ jobs:
 
 workflows:
   version: 2
-  staging_tests:
+  snapshot_tests:
     jobs:
       - workflow-setup:
           <<: *initialjob
+      - churros_tests_1:
+          <<: *testjob
+      - churros_tests_2:
+          <<: *testjob
+      - churros_tests_3:
+          <<: *testjob
+      - churros_tests_4:
+          <<: *testjob
+      - churros_tests_5:
+          <<: *testjob
+      - churros_tests_6:
+          <<: *testjob
+      - churros_tests_7:
+          <<: *testjob
       - churros_tests_8:
+          <<: *testjob
+      - churros_tests_9:
+          <<: *testjob
+      - churros_tests_10:
+          <<: *testjob
+      - churros_tests_11:
           <<: *testjob
       - qaautomation_tests:
           <<: *testjob
