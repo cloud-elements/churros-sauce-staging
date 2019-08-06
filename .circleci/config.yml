@@ -419,7 +419,7 @@ workflows:
           <<: *testjob
       - churros_tests_12:
           <<: *testjob
-    - qaautomation_tests:
+      - qaautomation_tests:
           <<: *testjob
       - handle_all_pass:
           <<: *wrapupjob
