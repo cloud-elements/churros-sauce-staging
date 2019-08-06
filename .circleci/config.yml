@@ -5,7 +5,7 @@ x-aliases:
   ####### churros jobs setup #######
   - churros-build-setup: &churros-build-setup
       working_directory: ~/cloud-elements/churros-sauce-staging
-      parallelism: 4
+      parallelism: 1
       shell: /bin/bash --login
       environment:
         CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
@@ -305,11 +305,10 @@ jobs:
     <<: *churros-build-setup
     steps:
       - churros-setup
+      - churros: { test_name: elements/marketo}
       - churros: { test_name: elements/box, exclude: true}
       - churros: { test_name: elements/hubspotcrm, exclude: true}
-      - churros: { test_name: elements/marketo}
       - churros: { test_name: elements/zendesk, exclude: true }
-      - churros: { test_name: elements/eloqua}
       - churros-rules
 
   churros_tests_5:
@@ -333,7 +332,6 @@ jobs:
       - churros-setup
 
       - churros: { test_name: elements/pardot}
-      - churros: { test_name: elements/successfactors }
       - churros: { test_name: elements/netsuitecrmv2, exclude: true}
       - churros: { test_name: elements/sfdcservicecloud, exclude: true}
       - churros: { test_name: elements/sfdc, exclude: true}
@@ -344,8 +342,6 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/salesforcemarketingcloud }
-      - churros: { test_name: elements/brighttalk }
-      - churros: { test_name: elements/sendgrid }
       - churros: { test_name: elements/servicenow, exclude: true  }
       - churros: { test_name: elements/shopify, exclude: true   }
       - churros-rules
@@ -354,6 +350,7 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/sapc4ccrm }
+      - churros: { test_name: elements/successfactors }
       - churros: { test_name: elements/sageone, exclude: true}
       - churros-rules
 
@@ -363,6 +360,7 @@ jobs:
       - churros-setup
       - churros: { test_name: elements/brighttalk }
       - churros: { test_name: elements/sendgrid }
+      - churros: { test_name: elements/eloqua}
       - churros: { test_name: elements/servicenow, exclude: true  }
       - churros: { test_name: elements/shopify, exclude: true   }
       - churros-rules
