@@ -5,7 +5,7 @@ x-aliases:
   ####### churros jobs setup #######
   - churros-build-setup: &churros-build-setup
       working_directory: ~/cloud-elements/churros-sauce-staging
-      parallelism: 2
+      parallelism: 1
       shell: /bin/bash --login
       environment:
         CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
@@ -425,6 +425,7 @@ jobs:
 workflows:
   version: 2
   staging_tests:
+    parallelism: 4
     jobs:
       - workflow-setup:
           <<: *initialjob
