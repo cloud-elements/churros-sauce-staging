@@ -29,7 +29,7 @@ x-aliases:
       <<: *fltr
       requires:
         - workflow-setup
-  - wrapupjob: &wrapupjob
+  - wrapupjob: &wrapupjob 
       context: soba-notifs
       requires:
         - churros_tests_1
@@ -40,6 +40,9 @@ x-aliases:
         - churros_tests_6
         - churros_tests_7
         - churros_tests_8
+        - churros_tests_9
+        - churros_tests_10
+        - churros_tests_11
         - qaautomation_tests
 
 ###############################################################
