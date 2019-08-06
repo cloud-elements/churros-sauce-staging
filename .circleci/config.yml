@@ -29,7 +29,7 @@ x-aliases:
       <<: *fltr
       requires:
         - workflow-setup
-  - wrapupjob: &wrapupjob 
+  - wrapupjob: &wrapupjob
       context: soba-notifs
       requires:
         - churros_tests_1
@@ -112,24 +112,7 @@ commands:
       - run:
           name: Create results directory
           command: mkdir ~/test_results
-  
-  churros-provisioning-rules:
-    steps:
-      - run:
-          when: on_fail
-          name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh FAIL stg churros-provisioning circleci NOT
-      - run:
-          when: on_success
-          name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh PASS stg churros-provisioning circleci NOT
-      - store_test_results:
-          path: /tmp/circleci-test-results
-      # Save artifacts
-      - store_artifacts:
-          path: /tmp/circleci-artifacts
-      - store_artifacts:
-          path: /tmp/circleci-test-results
+
     
   churros-rules:
     steps:
@@ -306,6 +289,7 @@ jobs:
       - churros: { test_name: platform/users }
       - churros: { test_name: platform/accounts }
       - churros: { test_name: platform/saml }
+      - churros-rules
 
     churros_tests_3:
       <<: *churros-build-setup
