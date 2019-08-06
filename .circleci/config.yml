@@ -367,45 +367,45 @@ jobs:
       - churros: { test_name: elements/shopify, exclude: true   }
       - churros-rules
 
-churros_tests_11:
-  <<: *churros-build-setup
-  steps:
-    - churros-setup
-    - churros: { test_name: elements/chargebee }
-    - churros: { test_name: elements/kissmetrics }
-    - churros: { test_name: elements/taxify }
-    - churros: { test_name: elements/sailthru }
-    - churros: { test_name: elements/eventmobiv1 }
-    - churros: { test_name: elements/actessentialsoauth, exclude: true }
-    - churros: { test_name: elements/bigcommerce, exclude: true }
-    - churros: { test_name: elements/zohocrm, exclude: true }
-    - churros: { test_name: elements/chargify, exclude: true }
-    - churros: { test_name: elements/dropboxv2, exclude: true }
-    - churros: { test_name: elements/dropboxbusinessv2, exclude: true }
-    - churros: { test_name: elements/etsy, exclude: true }
-    - churros: { test_name: elements/expensify, exclude: true }
-    - churros: { test_name: elements/fieldawarev2, exclude: true }
-    - churros: { test_name: elements/freshdeskv2, exclude: true }
-    - churros: { test_name: elements/googledrive, exclude: true }
-    - churros: { test_name: elements/hubspot, exclude: true }
-    - churros: { test_name: elements/mailchimpv3, exclude: true }
-    - churros: { test_name: elements/mysql, exclude: true }
-    - churros: { test_name: elements/netsuiteerpv2, exclude: true }
-    - churros: { test_name: elements/netsuitefinancev2, exclude: true }
-    - churros: { test_name: elements/onedrive, exclude: true }
-    - churros: { test_name: elements/onedrivebusiness, exclude: true }
-    - churros: { test_name: elements/onedrivev2, exclude: true }
-    - churros: { test_name: elements/quickbooks, exclude: true }
-    - churros: { test_name: elements/readytalk, exclude: true }
-    - churros: { test_name: elements/readytalkilluminate, exclude: true }
-    - churros: { test_name: elements/servicenowoauth, exclude: true }
-    - churros: { test_name: elements/sharefile, exclude: true }
-    - churros: { test_name: elements/stripe, exclude: true }
-    - churros: { test_name: elements/sqlserver, exclude: true }
-    - churros: { test_name: elements/twiliov2, exclude: true }
-    - churros: { test_name: elements/twitter, exclude: true }
-    - churros: { test_name: elements/woocommercerest, exclude: true }
-    - churros-rules
+  churros_tests_11:
+    <<: *churros-build-setup
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/chargebee }
+      - churros: { test_name: elements/kissmetrics }
+      - churros: { test_name: elements/taxify }
+      - churros: { test_name: elements/sailthru }
+      - churros: { test_name: elements/eventmobiv1 }
+      - churros: { test_name: elements/actessentialsoauth, exclude: true }
+      - churros: { test_name: elements/bigcommerce, exclude: true }
+      - churros: { test_name: elements/zohocrm, exclude: true }
+      - churros: { test_name: elements/chargify, exclude: true }
+      - churros: { test_name: elements/dropboxv2, exclude: true }
+      - churros: { test_name: elements/dropboxbusinessv2, exclude: true }
+      - churros: { test_name: elements/etsy, exclude: true }
+      - churros: { test_name: elements/expensify, exclude: true }
+      - churros: { test_name: elements/fieldawarev2, exclude: true }
+      - churros: { test_name: elements/freshdeskv2, exclude: true }
+      - churros: { test_name: elements/googledrive, exclude: true }
+      - churros: { test_name: elements/hubspot, exclude: true }
+      - churros: { test_name: elements/mailchimpv3, exclude: true }
+      - churros: { test_name: elements/mysql, exclude: true }
+      - churros: { test_name: elements/netsuiteerpv2, exclude: true }
+      - churros: { test_name: elements/netsuitefinancev2, exclude: true }
+      - churros: { test_name: elements/onedrive, exclude: true }
+      - churros: { test_name: elements/onedrivebusiness, exclude: true }
+      - churros: { test_name: elements/onedrivev2, exclude: true }
+      - churros: { test_name: elements/quickbooks, exclude: true }
+      - churros: { test_name: elements/readytalk, exclude: true }
+      - churros: { test_name: elements/readytalkilluminate, exclude: true }
+      - churros: { test_name: elements/servicenowoauth, exclude: true }
+      - churros: { test_name: elements/sharefile, exclude: true }
+      - churros: { test_name: elements/stripe, exclude: true }
+      - churros: { test_name: elements/sqlserver, exclude: true }
+      - churros: { test_name: elements/twiliov2, exclude: true }
+      - churros: { test_name: elements/twitter, exclude: true }
+      - churros: { test_name: elements/woocommercerest, exclude: true }
+      - churros-rules
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
     docker:
@@ -425,7 +425,7 @@ churros_tests_11:
 
 workflows:
   version: 2
-  snapshot_tests:
+  staging_tests:
     jobs:
       - workflow-setup:
           <<: *initialjob
