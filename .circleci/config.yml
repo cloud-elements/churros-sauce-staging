@@ -265,6 +265,7 @@ jobs:
 
   churros_tests_1:
     <<: *churros-build-setup
+    parallelism: 4
     steps:
       - churros-setup
       - churros: { test_name: platform/hubs }
@@ -282,6 +283,7 @@ jobs:
 
   churros_tests_2:
     <<: *churros-build-setup
+    parallelism: 4
     steps:
       - churros-setup
       - churros: { test_name: platform/organizations }
@@ -293,6 +295,7 @@ jobs:
 
   churros_tests_3:
     <<: *churros-build-setup
+    parallelism: 4
     steps:
       - churros-setup
       - churros: { test_name: platform/provisioning }
@@ -303,6 +306,7 @@ jobs:
 
   churros_tests_4:
     <<: *churros-build-setup
+    parallelism: 1
     steps:
       - churros-setup
       - churros: { test_name: elements/marketo}
@@ -313,6 +317,7 @@ jobs:
 
   churros_tests_5:
     <<: *churros-build-setup
+    parallelism: 1
     steps:
       - churros-setup
       - churros: { test_name: elements/dynamicscrmadfs }
@@ -320,6 +325,7 @@ jobs:
 
   churros_tests_6:
     <<: *churros-build-setup
+    parallelism: 2
     steps:
       - churros-setup
       - churros: { test_name: elements/sapc4chd }
@@ -339,6 +345,7 @@ jobs:
 
   churros_tests_8:
     <<: *churros-build-setup
+    parallelism: 2
     steps:
       - churros-setup
       - churros: { test_name: elements/salesforcemarketingcloud }
@@ -348,6 +355,7 @@ jobs:
       - churros-rules
   churros_tests_9:
     <<: *churros-build-setup
+    parallelism: 2
     steps:
       - churros-setup
       - churros: { test_name: elements/sapc4ccrm }
@@ -357,6 +365,7 @@ jobs:
 
   churros_tests_10:
     <<: *churros-build-setup
+    parallelism: 3
     steps:
       - churros-setup
       - churros: { test_name: elements/brighttalk }
@@ -368,6 +377,7 @@ jobs:
 
   churros_tests_11:
     <<: *churros-build-setup
+    parallelism: 4
     steps:
       - churros-setup
       - churros: { test_name: elements/chargebee }
@@ -425,7 +435,6 @@ jobs:
 workflows:
   version: 2
   staging_tests:
-    parallelism: 4
     jobs:
       - workflow-setup:
           <<: *initialjob
