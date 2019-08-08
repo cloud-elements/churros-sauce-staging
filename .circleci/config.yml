@@ -280,7 +280,7 @@ jobs:
     parallelism: 1
     steps:
       - churros-setup
-      - churros: { test_name: platform/organizations }
+      - churros: { test_name: platform/organizations, exclude: true }
       - churros: { test_name: platform/signup }
       - churros: { test_name: platform/users }
       - churros: { test_name: platform/accounts }
