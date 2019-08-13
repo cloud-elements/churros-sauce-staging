@@ -254,7 +254,6 @@ jobs:
 
   churros_tests_11:
     <<: *churros-build-setup
-    parallelism: 4
     steps:
       - churros-setup
       - churros: { test_name: elements/chargebee }
@@ -262,6 +261,7 @@ jobs:
       - churros: { test_name: elements/taxify }
       - churros: { test_name: elements/sailthru }
       - churros-rules
+    parallelism: 4
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
     docker:
