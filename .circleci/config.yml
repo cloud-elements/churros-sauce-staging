@@ -112,6 +112,9 @@ commands:
       - run:
           name: Create results directory
           command: mkdir ~/test_results
+      - run:
+          name: Start postgres
+          command: sudo service postgresql start
 
     
   churros-rules:
