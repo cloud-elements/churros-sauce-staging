@@ -87,11 +87,6 @@ commands:
             curl -s -L -O https://raw.githubusercontent.com/cloud-elements/onepass/master/linux/op
             chmod a+x op
             ln -s $PWD/op /home/ubuntu/bin/op
-            
-  start-postgres:
-    steps:
-      -run: 
-         command: sudo service postgresql start
   
   install-node:
     steps:
@@ -117,6 +112,9 @@ commands:
       - run:
           name: Create results directory
           command: mkdir ~/test_results
+      - run:
+          name: soba postgres
+          command: sudo service postgresql start
 
     
   churros-rules:
