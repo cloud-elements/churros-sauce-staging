@@ -87,14 +87,6 @@ commands:
             curl -s -L -O https://raw.githubusercontent.com/cloud-elements/onepass/master/linux/op
             chmod a+x op
             ln -s $PWD/op /home/ubuntu/bin/op
-  install-nvm:
-    steps:
-      - run:
-          name: install nvm
-          command: |
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
-            source ~/.nvm/nvm.sh
-           
   
   install-node:
     steps:
@@ -102,6 +94,7 @@ commands:
           command: |
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
             source ~/.nvm/nvm.sh
+            sudo apt-get install npm
             nvm install 8.10.0 && nvm alias default 8.10.0
   churros-setup:
     steps:
