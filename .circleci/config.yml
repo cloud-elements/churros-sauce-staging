@@ -12,8 +12,7 @@ x-aliases:
         CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
         ENVIRONMENT: stg
       docker:
-        - image: circleci/build-image
-          command: /sbin/init
+        - image: circleci/build-image:ubuntu-14.04-XXL-1327-3401d20
   ####### workflow job settings #######
   - ctx: &ctx
       context: soba-notifs
@@ -146,8 +145,7 @@ jobs:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
       ENVIRONMENT: stg
     docker:
-      - image: circleci/build-image
-        command: /sbin/init
+      - image: circleci/build-image:ubuntu-14.04-XXL-1327-3401d20
     steps: 
       - checkout
       - attach_workspace:
