@@ -309,7 +309,7 @@ jobs:
 
 workflows:
   version: 2
-  production_tests:
+  staging_tests:
     jobs:
       - workflow-setup:
           <<: *initialjob
