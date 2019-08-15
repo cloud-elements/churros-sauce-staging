@@ -188,7 +188,7 @@ jobs:
       - run:
           when: always
           name: churros init
-          command: ./circleci/churros_init.sh ${ENVIRONMENT}
+          command: sudo ./circleci/churros_init.sh ${ENVIRONMENT}
       - run : mv ~/.churros ~/cloud-elements
       - persist_to_workspace:
           root: ~/
