@@ -12,7 +12,7 @@ x-aliases:
         CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
         ENVIRONMENT: stg
       docker:
-        - image: circleci/build-image:ubuntu-14.04-XXL-1327-3401d20
+        - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
   ####### workflow job settings #######
   - ctx: &ctx
       context: soba-notifs
@@ -31,19 +31,7 @@ x-aliases:
   - wrapupjob: &wrapupjob
       context: soba-notifs
       requires:
-        - churros_tests_1
-        - churros_tests_2
-        - churros_tests_3
-        - churros_tests_4
-        - churros_tests_5
-        - churros_tests_6
-        - churros_tests_7
-        - churros_tests_8
-        - churros_tests_9
-        - churros_tests_10
         - churros_tests_11
-        - churros_tests_12
-        - qaautomation_tests
 
 ###############################################################
 ####################### CircleCI Config #######################
@@ -91,13 +79,7 @@ commands:
   install-node:
     steps:
       - run:
-          command: |
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
-            source ~/.nvm/nvm.sh
-            curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-            sudo apt-get install nodejs
-            sudo npm set ca null
-            nvm install 8.10.0 && nvm use 8.10.0 && nvm alias default 8.10.0
+          command: nvm install 8.10.0 && nvm alias default 8.10.0
   churros-setup:
     steps:
       - checkout
@@ -118,9 +100,6 @@ commands:
       - run:
           name: Create results directory
           command: mkdir ~/test_results
-      - run:
-          name: soba postgres
-          command: sudo service postgresql start
 
     
   churros-rules:
@@ -151,7 +130,7 @@ jobs:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
       ENVIRONMENT: stg
     docker:
-      - image: circleci/build-image:ubuntu-14.04-XXL-1327-3401d20
+      - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
     steps: 
       - checkout
       - attach_workspace:
@@ -170,8 +149,8 @@ jobs:
           name: install churros
           command: |
                 git clone https://github.com/cloud-elements/churros.git ../churros
-                pushd ../churros && sudo npm install --unsafe-perm=true --allow-root && npm link
-                sudo npm install -g --unsafe-perm=true --allow-root chromedriver
+                pushd ../churros && npm install && npm link
+                npm run globalinstall
       - save_cache:
           key: v2-dep-{{ .Branch }}-{{ epoch }}
           paths:
@@ -184,201 +163,24 @@ jobs:
       - run:
           when: always
           name: churros init
-          command: sudo ./circleci/churros_init.sh ${ENVIRONMENT}
+          command: ./circleci/churros_init.sh ${ENVIRONMENT}
       - run : mv ~/.churros ~/cloud-elements
       - persist_to_workspace:
           root: ~/
           paths: 
             - cloud-elements
   
-  qaautomation_tests:
-    docker:
-      - image: circleci/python
-    parallelism: 1
-    working_directory: ~/churros-sauce-staging
 
-    steps:
-      - checkout
-      - setup_remote_docker
-      - attach_workspace:
-          at: ~/workspace
-      - run: git clone https://github.com/cloud-elements/qaAutomation.git ~/qaAutomation
-
-      - run:
-          name: Login to dockerhub
-          command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: 
-          name: move slack-cli from workspace
-          command: mv ~/workspace/cloud-elements/slack-cli ~/
-      - run:
-          name: Start test container
-          command: |
-            docker run -it -d --name qa-auto cloudelements/qa-automation:latest
-
-      - run:
-          name: Copy latest repo into test container
-          command: |
-            docker cp ~/qaAutomation/src/. qa-auto:/qaAutomation/src
-            docker cp ~/qaAutomation/tests/. qa-auto:/qaAutomation/tests
-            docker cp ~/qaAutomation/pytest.ini qa-auto:/qaAutomation/pytest.ini
-            docker cp ~/qaAutomation/requirements.txt qa-auto:/qaAutomation/requirements.txt
-            docker cp ~/workspace/cloud-elements/.churros/sauce.json qa-auto:/qaAutomation/sauce.json
-
-      - run:
-          name: Ensure all requirements are installed in container
-          command: |
-            docker exec qa-auto pip3 install -r /qaAutomation/requirements.txt
-
-      - run:
-          name: Make reports directories
-          command: |
-            docker exec qa-auto mkdir test-results
-            docker exec qa-auto mkdir test-results/metrics-results
-            docker exec qa-auto mkdir test-results/bulk-results
-
-      # run tests
-      - run:
-          name: Run metrics tests
-          command: |
-            mkdir test-results
-            mkdir test-results/metrics-results
-            docker exec qa-auto pytest tests/platform/metrics -vv --junitxml=test-results/metrics-results/results.xml --html=test-results/metrics-results/results.html --self-contained-html --run-slow --tests-per-worker auto --browser=chrome-headless
-          no_output_timeout: 1h
-          working_directory: ~/qaAutomation
-          when: always
-
-      - run:
-          when: on_fail
-          name: send notifications for test results
-          command: ~/churros-sauce-staging/circleci/notif_test_result.sh FAIL stg qaAutomation circleci
-      - run:
-          when: on_success
-          name: send notifications for test results
-          command: ~/churros-sauce-staging/circleci/notif_test_result.sh PASS stg qaAutomation circleci
-
-      # store metrics results
-      - run:
-          name: Store metrics tests results
-          command: |
-            docker cp qa-auto:/qaAutomation/test-results/metrics-results/results.xml test-results/metrics-results
-            docker cp qa-auto:/qaAutomation/test-results/metrics-results/results.html test-results/metrics-results
-          when: always
-          working_directory: ~/qaAutomation
-
-      - store_test_results:
-          path: ~/qaAutomation/test-results/metrics-results
-
-      - store_artifacts:
-          path: ~/qaAutomation/test-results/metrics-results
-
-  churros_tests_1:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: platform/hubs }
-      - churros: { test_name: platform/general }
-      - churros: { test_name: platform/jobs }
-      - churros: { test_name: platform/notifications }
-      - churros-rules
-
-  churros_tests_2:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: platform/organizations, exclude: true }
-      - churros: { test_name: platform/signup }
-      - churros: { test_name: platform/users }
-      - churros: { test_name: platform/accounts }
-      - churros: { test_name: platform/saml }
-      - churros-rules
-
-  churros_tests_3:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: platform/provisioning }
-      - churros: { test_name: platform/usage }
-      - churros: { test_name: platform/applications }
-      - churros: { test_name: platform/docs }
-      - churros-rules
-
-  churros_tests_4:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/marketo}
-      - churros-rules
-
-  churros_tests_5:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/dynamicscrmadfs }
-      - churros-rules
-
-  churros_tests_6:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/sapc4chd }
-      - churros: { test_name: elements/taleobusiness}
-      - churros-rules
-
-  churros_tests_7:
-    <<: *churros-build-setup
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/pardot}
-      - churros-rules
-
-  churros_tests_8:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/salesforcemarketingcloud }
-      - churros-rules
-  churros_tests_9:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/sapc4ccrm }
-      - churros: { test_name: elements/successfactors }
-      - churros-rules
-
-  churros_tests_10:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/brighttalk }
-      - churros: { test_name: elements/sendgrid }
-      - churros-rules
-  churros_tests_12:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/eloqua}
-      - churros-rules
   churros_tests_11:
     <<: *churros-build-setup
-    parallelism: 4
     steps:
       - churros-setup
       - churros: { test_name: elements/chargebee }
       - churros: { test_name: elements/kissmetrics }
       - churros: { test_name: elements/taxify }
       - churros: { test_name: elements/sailthru }
-      - churros: { test_name: elements/eventmobiv1 }
       - churros-rules
+    parallelism: 4
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
     docker:
@@ -402,31 +204,7 @@ workflows:
     jobs:
       - workflow-setup:
           <<: *initialjob
-      - churros_tests_1:
-          <<: *testjob
-      - churros_tests_2:
-          <<: *testjob
-      - churros_tests_3:
-          <<: *testjob
-      - churros_tests_4:
-          <<: *testjob
-      - churros_tests_5:
-          <<: *testjob
-      - churros_tests_6:
-          <<: *testjob
-      - churros_tests_7:
-          <<: *testjob
-      - churros_tests_8:
-          <<: *testjob
-      - churros_tests_9:
-          <<: *testjob
-      - churros_tests_10:
-          <<: *testjob
       - churros_tests_11:
-          <<: *testjob
-      - churros_tests_12:
-          <<: *testjob
-      - qaautomation_tests:
           <<: *testjob
       - handle_all_pass:
           <<: *wrapupjob
