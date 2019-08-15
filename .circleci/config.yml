@@ -96,6 +96,7 @@ commands:
             source ~/.nvm/nvm.sh
             curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
             sudo apt-get install nodejs
+            npm install npm@latest -g
             sudo npm set ca null
             nvm install 8.10.0 && nvm use 8.10.0 && nvm alias default 8.10.0
             nvm --version
