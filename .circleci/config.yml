@@ -13,7 +13,6 @@ x-aliases:
         ENVIRONMENT: stg
       docker:
         - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-          command: /sbin/init
   ####### workflow job settings #######
   - ctx: &ctx
       context: soba-notifs
@@ -144,7 +143,6 @@ jobs:
       ENVIRONMENT: stg
     docker:
       - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-        command: /sbin/init
     steps: 
       - checkout
       - attach_workspace:
