@@ -94,7 +94,7 @@ commands:
           command: |
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
             source ~/.nvm/nvm.sh
-            curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+            curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
             sudo apt-get install nodejs
             npm install npm@latest -g
             sudo npm set ca null
