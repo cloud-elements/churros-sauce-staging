@@ -95,7 +95,7 @@ commands:
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
             source ~/.nvm/nvm.sh
             sudo apt-get install nodejs
-            sudo apt-get install npm
+            curl -L https://www.npmjs.com/install.sh | sh
             sudo npm set ca null
             nvm install 8.10.0 && nvm alias default 8.10.0
   churros-setup:
