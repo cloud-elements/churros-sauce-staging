@@ -174,8 +174,8 @@ jobs:
           name: install churros
           command: |
                 git clone https://github.com/cloud-elements/churros.git ../churros
-                pushd ../churros && npm install && npm link
-                sudo npm install -g chromedriver --allow-root
+                pushd ../churros && sudo npm install --unsafe-perm=true --allow-root && npm link
+                sudo npm install -g --unsafe-perm=true --allow-root chromedriver
       - save_cache:
           key: v2-dep-{{ .Branch }}-{{ epoch }}
           paths:
