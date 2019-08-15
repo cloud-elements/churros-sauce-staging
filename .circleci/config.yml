@@ -171,7 +171,7 @@ jobs:
           command: |
                 git clone https://github.com/cloud-elements/churros.git ../churros
                 pushd ../churros && npm install && npm link
-                npm install -g geckodriver@latest chromedriver@latest chrome-headless-launcher@latest
+                npm run globalinstall
       - save_cache:
           key: v2-dep-{{ .Branch }}-{{ epoch }}
           paths:
