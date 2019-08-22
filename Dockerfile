@@ -1,7 +1,6 @@
 FROM  ubuntu:18.04
 MAINTAINER developer@cloud-elements.com
 ENV USER=root
-ENV CHURROS_TEMPLATE="/qaAutomation/sauce.json"
 ENV CHURROS_USER="churros@churros.com"
 ENV CHURROS_URL="staging.cloud-elements.com"
 ENV CHURROS_PASSWORD="elements1"
