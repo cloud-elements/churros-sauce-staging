@@ -2,7 +2,7 @@
 ###### Aliases #####
 ####################
 x-aliases:
-  ####### churros jobs setup #######
+  ####### churros jobs setup ########
   - churros-build-setup: &churros-build-setup
       working_directory: ~/cloud-elements/churros-sauce-staging
       parallelism: 1
