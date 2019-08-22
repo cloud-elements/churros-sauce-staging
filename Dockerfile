@@ -1,4 +1,4 @@
-FROM  ubuntu:18.10
+FROM  ubuntu:18.04
 MAINTAINER developer@cloud-elements.com
 ENV USER=root
 ENV CHURROS_TEMPLATE="/qaAutomation/sauce.json"
@@ -12,13 +12,12 @@ RUN apt-get install curl -yq
 RUN apt-get install ssh -yq
 RUN apt-get install git -yq
 RUN apt-get install build-essential libssl-dev -yq
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt install nodejs -yq
 RUN apt install build-essential
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 CMD source ~/.bashrc
 CMD source ~/.profile
-RUN apt-get install nodejs -yq
 RUN apt-get install firefox -yq
 RUN apt-get install xvfb -yq
 RUN apt-get install xsel -yq
