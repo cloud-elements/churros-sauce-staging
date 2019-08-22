@@ -1,19 +1,23 @@
-FROM  ubuntu:bionic-20190807
+FROM  ubuntu:18.10
 MAINTAINER developer@cloud-elements.com
 ENV USER=root
-ENV CHURROS_USER="churros@churros.com"
-ENV CHURROS_URL="staging.cloud-elements.com"
-ENV CHURROS_PASSWORD="elements1"
-ENV CHURROS_ENV="staging"
+ENV CHURROS_TEMPLATE="/qaAutomation/sauce.json"
+ENV CHURROS_USER="claude.elements.qa+circleci@gmail.com"
+ENV CHURROS_URL="snapshot.cloud-elements.com"
+ENV CHURROS_PASSWORD="Cl0ud3l3m3nts!"
+ENV CHURROS_ENV="snapshot"
 ENV DISPLAY=:99
 RUN apt-get update
 RUN apt-get install curl -yq
 RUN apt-get install ssh -yq
 RUN apt-get install git -yq
 RUN apt-get install build-essential libssl-dev -yq
-RUN apt update && apt install nodejs && apt install npm && npm --version
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+RUN apt install nodejs -yq
+RUN apt install build-essential
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 CMD source ~/.bashrc
+CMD source ~/.profile
 RUN apt-get install nodejs -yq
 RUN apt-get install firefox -yq
 RUN apt-get install xvfb -yq
