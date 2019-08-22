@@ -12,7 +12,7 @@ x-aliases:
         CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
         ENVIRONMENT: stg
       docker:
-        - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
+        - image: kcguttikonda/ubuntu
   ####### workflow job settings #######
   - ctx: &ctx
       context: soba-notifs
@@ -91,7 +91,9 @@ commands:
   install-node:
     steps:
       - run:
-          command: nvm install 8.10.0 && nvm alias default 8.10.0
+          command: |
+            . ~/.nvm/nvm.sh
+            nvm install 8.10.0 && nvm alias default 8.10.0
   churros-setup:
     steps:
       - checkout
@@ -142,7 +144,7 @@ jobs:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
       ENVIRONMENT: stg
     docker:
-      - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
+      - image: kcguttikonda/ubuntu
     steps: 
       - checkout
       - attach_workspace:
@@ -160,7 +162,7 @@ jobs:
       - run: 
           name: install churros
           command: |
-                git clone https://github.com/cloud-elements/churros.git ../churros
+                git clone -b chrome_as_default https://github.com/cloud-elements/churros.git ../churros
                 pushd ../churros && npm install && npm link
                 npm run globalinstall
       - save_cache:
