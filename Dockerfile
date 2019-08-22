@@ -2,9 +2,9 @@ FROM  ubuntu:18.04
 MAINTAINER developer@cloud-elements.com
 ENV USER=root
 ENV CHURROS_TEMPLATE="/qaAutomation/sauce.json"
-ENV CHURROS_USER="claude.elements.qa+circleci@gmail.com"
+ENV CHURROS_USER="churros@churros.com"
 ENV CHURROS_URL="staging.cloud-elements.com"
-ENV CHURROS_PASSWORD="Cl0ud3l3m3nts!"
+ENV CHURROS_PASSWORD="elements1"
 ENV CHURROS_ENV="staging"
 ENV DISPLAY=:99
 RUN apt-get update
