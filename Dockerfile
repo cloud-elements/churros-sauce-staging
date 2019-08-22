@@ -2,7 +2,7 @@ FROM  ubuntu:bionic-20190807
 MAINTAINER developer@cloud-elements.com
 ENV USER=root
 ENV CHURROS_USER="churros@churros.com"
-ENV CHURROS_URL="snapshot.cloud-elements.com"
+ENV CHURROS_URL="staging.cloud-elements.com"
 ENV CHURROS_PASSWORD="elements1"
 ENV CHURROS_ENV="staging"
 ENV DISPLAY=:99
