@@ -165,7 +165,7 @@ jobs:
                 git clone -b chrome_as_default https://github.com/cloud-elements/churros.git ../churros
                 pushd ../churros && npm install && npm link
                 npm run globalinstall
-                chmod -R a+rwx /root/.nvm/versions/node/v8.10.0/lib/node_modules/churros
+                chmod -R a+rwx /root/.nvm/versions/node/v8.10.0
                 npm install -g
       - save_cache:
           key: v2-dep-{{ .Branch }}-{{ epoch }}
