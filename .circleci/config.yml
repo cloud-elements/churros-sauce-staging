@@ -86,7 +86,7 @@ commands:
           command: |
             curl -s -L -O https://raw.githubusercontent.com/cloud-elements/onepass/master/linux/op
             chmod a+x op
-            ln -s $PWD/op /home/ubuntu/bin/op
+            ln -s $PWD/op /bin/op
   
   install-node:
     steps:
