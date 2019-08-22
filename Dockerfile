@@ -3,9 +3,9 @@ MAINTAINER developer@cloud-elements.com
 ENV USER=root
 ENV CHURROS_TEMPLATE="/qaAutomation/sauce.json"
 ENV CHURROS_USER="claude.elements.qa+circleci@gmail.com"
-ENV CHURROS_URL="snapshot.cloud-elements.com"
+ENV CHURROS_URL="staging.cloud-elements.com"
 ENV CHURROS_PASSWORD="Cl0ud3l3m3nts!"
-ENV CHURROS_ENV="snapshot"
+ENV CHURROS_ENV="staging"
 ENV DISPLAY=:99
 RUN apt-get update
 RUN apt-get install curl -yq
