@@ -12,7 +12,10 @@ x-aliases:
         CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
         ENVIRONMENT: stg
       docker:
-        - image: kcguttikonda/ubuntu
+        - image: cloudelements/churros-sauce
+          auth:
+            username: $DOCKER_USERNAME
+            password: $DOCKER_PASSWORD
   ####### workflow job settings #######
   - ctx: &ctx
       context: soba-notifs
@@ -94,6 +97,15 @@ commands:
           command: |
             . ~/.nvm/nvm.sh
             nvm install 8.10.0 && nvm alias default 8.10.0
+
+  stop-and-fix:
+    steps:
+      - run:
+          when: always
+          name: download stopandfix and make executable
+          command: |
+            curl -s -L https://github.com/cloud-elements/stopandfix-releases/releases/download/v0.1.1/stopandfix__x86_64-unknown-linux-gnu -o ~/cloud-elements/stopandfix
+            chmod a+x ~/cloud-elements/stopandfix
   churros-setup:
     steps:
       - checkout
@@ -103,7 +115,7 @@ commands:
           name: setup job from workspace
           command: |
             mv ~/workspace/cloud-elements/churros ~/cloud-elements
-            mv ~/workspace/cloud-elements/.churros ~/workspace/cloud-elements/slack-cli ~/
+            mv ~/workspace/cloud-elements/.churros ~/workspace/cloud-elements/stopandfix ~/workspace/cloud-elements/slack-cli ~/
       - run:
           working_directory: ~/cloud-elements/churros-sauce-staging
           command: mkdir -p "${CIRCLE_ARTIFACTS}" "${CIRCLE_TEST_REPORTS}/platform" "${CIRCLE_TEST_REPORTS}/elements"
@@ -144,7 +156,10 @@ jobs:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
       ENVIRONMENT: stg
     docker:
-      - image: kcguttikonda/ubuntu
+      - image: cloudelements/churros-sauce
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
     steps: 
       - checkout
       - attach_workspace:
@@ -162,10 +177,10 @@ jobs:
       - run: 
           name: install churros
           command: |
-                git clone -b chrome_as_default https://github.com/cloud-elements/churros.git ../churros
+                git clone https://c66e488c41d5741a77f8cb3195442f60f565ff12@github.com/cloud-elements/churros.git ../churros
                 pushd ../churros && npm install && npm link
                 npm run globalinstall
-                chmod -R a+rwx /root/.nvm/versions/node/v8.10.0
+                chmod -R a+rwx ../churros
                 npm install -g
       - save_cache:
           key: v2-dep-{{ .Branch }}-{{ epoch }}
@@ -180,6 +195,7 @@ jobs:
           when: always
           name: churros init
           command: ./circleci/churros_init.sh ${ENVIRONMENT}
+      - stop-and-fix: {}
       - run : mv ~/.churros ~/cloud-elements
       - persist_to_workspace:
           root: ~/
@@ -197,14 +213,14 @@ jobs:
       - setup_remote_docker
       - attach_workspace:
           at: ~/workspace
-      - run: git clone https://github.com/cloud-elements/qaAutomation.git ~/qaAutomation
+      - run: git clone https://c66e488c41d5741a77f8cb3195442f60f565ff12@github.com/cloud-elements/qaAutomation.git ~/qaAutomation
 
       - run:
           name: Login to dockerhub
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - run: 
-          name: move slack-cli from workspace
-          command: mv ~/workspace/cloud-elements/slack-cli ~/
+          name: move stopandfix & slack-cli from workspace
+          command: command: mv ~/workspace/cloud-elements/slack-cli ~/workspace/cloud-elements/stopandfix ~/
       - run:
           name: Start test container
           command: |
@@ -365,7 +381,7 @@ jobs:
       - churros-rules
   churros_tests_11:
     <<: *churros-build-setup
-    parallelism: 4
+    parallelism: 1
     steps:
       - churros-setup
       - churros: { test_name: elements/chargebee }
