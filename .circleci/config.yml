@@ -362,7 +362,7 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/sapc4ccrm }
-      - churros: { test_name: elements/successfactors }
+      - churros: { test_name: elements/successfactors, exclude: true }
       - churros-rules
 
   churros_tests_10:
