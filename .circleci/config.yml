@@ -178,7 +178,7 @@ jobs:
           name: install churros
           command: |
                 git config credential.helper '!f() { sleep 1; echo "username=${GIT_USER}"; echo "password=${GIT_PASSWORD}"; }; f'
-                git clone https://c66e488c41d5741a77f8cb3195442f60f565ff12@github.com/cloud-elements/churros.git ../churros
+                git clone https://cecircleci:os87Nef96Vdpe4aYZZXmNk3YHGtDhxMs7apY4XsBToLjy36tmE@github.com/cloud-elements/churros.git ../churros
                 pushd ../churros && npm install && npm link
                 npm run globalinstall
                 chmod -R a+rwx ../churros
@@ -214,7 +214,7 @@ jobs:
       - setup_remote_docker
       - attach_workspace:
           at: ~/workspace
-      - run: git clone https://c66e488c41d5741a77f8cb3195442f60f565ff12@github.com/cloud-elements/qaAutomation.git ~/qaAutomation
+      - run: git clone https://cecircleci:os87Nef96Vdpe4aYZZXmNk3YHGtDhxMs7apY4XsBToLjy36tmE@github.com/cloud-elements/qaAutomation.git ~/qaAutomation
 
       - run:
           name: Login to dockerhub
