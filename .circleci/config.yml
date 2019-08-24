@@ -220,7 +220,7 @@ jobs:
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - run: 
           name: move stopandfix & slack-cli from workspace
-          command: command: mv ~/workspace/cloud-elements/slack-cli ~/workspace/cloud-elements/stopandfix ~/
+          command: mv ~/workspace/cloud-elements/slack-cli ~/workspace/cloud-elements/stopandfix ~/
       - run:
           name: Start test container
           command: |
