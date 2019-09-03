@@ -447,7 +447,7 @@ workflows:
     triggers:
       - schedule:
           # weekly at 3am on Monday UTC / 9pm Saturday MST / 8:30am Monday IST
-          cron: "00 12 * * *"
+          cron: "30 6 * * *"
           filters:
             branches:
               only: master
