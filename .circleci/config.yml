@@ -443,11 +443,11 @@ workflows:
       - handle_all_pass:
           <<: *wrapupjob
 
-  staging_tests_automated:
+  Daily_Staging_Tests:
     triggers:
       - schedule:
-          # weekly at 3am on Monday UTC / 9pm Saturday MST / 8:30am Monday IST
-          cron: "30 6 * * *"
+          # Daily at 3am UTC /  8pm MST / 8:30am IST
+          cron: "0 3 * * *"
           filters:
             branches:
               only: master
