@@ -311,7 +311,7 @@ jobs:
     parallelism: 1
     steps:
       - churros-setup
-      - churros: { test_name: platform/provisioning }
+      - churros: { test_name: platform/provisioning, exclude: true }
       - churros: { test_name: platform/usage }
       - churros: { test_name: platform/applications }
       - churros: { test_name: platform/docs }
@@ -339,7 +339,7 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/sapc4chd }
-      - churros: { test_name: elements/taleobusiness}
+      - churros: { test_name: elements/taleobusiness, exclude: true}
       - churros-rules
 
   churros_tests_7:
