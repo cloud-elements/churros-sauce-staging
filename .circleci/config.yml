@@ -388,7 +388,7 @@ jobs:
       - churros: { test_name: elements/chargebee }
       - churros: { test_name: elements/kissmetrics }
       - churros: { test_name: elements/taxify }
-      - churros: { test_name: elements/sailthru }
+      - churros: { test_name: elements/sailthru, exclude: true  }
       - churros: { test_name: elements/eventmobiv1 }
       - churros-rules
   # it is expected that this job only runs if all tests pass
