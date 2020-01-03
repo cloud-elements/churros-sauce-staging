@@ -12,7 +12,7 @@ RUN apt-get install ssh -yq
 RUN apt-get install git -yq
 RUN apt-get install jq -yq
 RUN apt-get install build-essential libssl-dev -yq
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt install build-essential
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 CMD source ~/.bashrc
@@ -38,7 +38,7 @@ RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/v0.23.0/ge
     && rm /tmp/geckodriver.tgz
 
 # chromeDriver v2.45
-RUN wget -q "https://chromedriver.storage.googleapis.com/76.0.3809.68/chromedriver_linux64.zip" -O /tmp/chromedriver.zip \
+RUN wget -q "https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip" -O /tmp/chromedriver.zip \
     && unzip /tmp/chromedriver.zip -d /usr/bin/ \
     && rm /tmp/chromedriver.zip
 

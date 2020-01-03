@@ -12,7 +12,7 @@ x-aliases:
         CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
         ENVIRONMENT: stg
       docker:
-        - image: cloudelements/churros-sauce
+        - image: cloudelements/churros-sauce:latest
           auth:
             username: $DOCKER_USERNAME
             password: $DOCKER_PASSWORD
@@ -70,7 +70,8 @@ commands:
             - run: 
                 name: << parameters.test_name >>
                 command: ./circleci/run_churros_suite.sh << parameters.test_name >>
-                when: << parameters.action >>                
+                when: << parameters.action >> 
+                no_output_timeout: 20m               
 
   churros_always:
     parameters:
@@ -94,9 +95,10 @@ commands:
   install-node:
     steps:
       - run:
+           name: install node version
           command: |
             . ~/.nvm/nvm.sh
-            nvm install 8.10.0 && nvm alias default 8.10.0
+            nvm install 10.18.0 && nvm alias default 10.18.0
 
   stop-and-fix:
     steps:
@@ -122,7 +124,7 @@ commands:
       - install-node
       - run:
           working_directory: ~/cloud-elements/churros
-          command: npm link
+          command: npm link && npm run postinstall
       - run:
           name: Create results directory
           command: mkdir ~/test_results
