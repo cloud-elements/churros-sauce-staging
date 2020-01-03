@@ -95,7 +95,7 @@ commands:
   install-node:
     steps:
       - run:
-           name: install node version
+          name: install node version
           command: |
             . ~/.nvm/nvm.sh
             nvm install 10.18.0 && nvm alias default 10.18.0
