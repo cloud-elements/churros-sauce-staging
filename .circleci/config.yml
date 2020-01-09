@@ -348,7 +348,7 @@ jobs:
     <<: *churros-build-setup
     steps:
       - churros-setup
-      - churros: { test_name: elements/pardot}
+      - churros: { test_name: elements/pardot, exclude: true}
       - churros-rules
 
   churros_tests_8:
