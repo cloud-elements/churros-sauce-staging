@@ -227,7 +227,7 @@ jobs:
       - run:
           name: Start test container
           command: |
-            docker run -it -d --name qa-auto cloudelements/qa-automation:latest
+            docker run -it -d -e CHURROS_URL=staging.cloud-elements.com -e CHURROS_ENV=staging --name qa-auto cloudelements/qa-automation:latest
 
       - run:
           name: Copy latest repo into test container
