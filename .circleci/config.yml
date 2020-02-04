@@ -738,7 +738,7 @@ provisioning_tests:
           filters:
             branches:
               only: master
-    jobs:
+  jobs:
       - workflow-setup:
             <<: *initialjob
 
