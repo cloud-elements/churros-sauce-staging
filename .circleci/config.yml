@@ -284,6 +284,228 @@ jobs:
 
       - store_artifacts:
           path: ~/qaAutomation/test-results/metrics-results
+  churros_provisioning_test:
+    <<: *churros-build-setup
+    steps:
+        - churros-setup
+        - churros_always: { test_name: elements/abbyy --provision }
+        - churros_always: { test_name: elements/actessentials --provision }
+        - churros_always: { test_name: elements/actessentialsoauth --provision }
+        - churros_always: { test_name: elements/acton --provision }
+        - churros_always: { test_name: elements/actoneb --provision }
+        - churros_always: { test_name: elements/acuityscheduling --provision }
+        - churros_always: { test_name: elements/adobe-esign --provision }
+        - churros_always: { test_name: elements/allbound --provision }
+        - churros_always: { test_name: elements/amazons3 --provision }
+        - churros_always: { test_name: elements/amazonsqs --provision }
+        - churros_always: { test_name: elements/autopilot --provision }
+        - churros_always: { test_name: elements/autotaskcrm --provision }
+        - churros_always: { test_name: elements/autotaskfinance --provision }
+        - churros_always: { test_name: elements/autotaskhelpdesk --provision }
+        - churros_always: { test_name: elements/awscloudformation --provision }
+        - churros_always: { test_name: elements/bamboohr --provision }
+        - churros_always: { test_name: elements/base --provision, exclude: true } # this is skipped in onepass
+        - churros_always: { test_name: elements/bigcommerce --provision }
+        - churros_always: { test_name: elements/bigcommerce--custom --provision }
+        - churros_always: { test_name: elements/box --provision, exclude: true } # this needs a OTP
+        - churros_always: { test_name: elements/boxv2 --provision, exclude: true } # this needs a OTP
+        - churros_always: { test_name: elements/brandfolder --provision }
+        - churros_always: { test_name: elements/brighttalk --provision}
+        - churros_always: { test_name: elements/bullhorn--v1 --provision }
+        - churros_always: { test_name: elements/bullhorn--v2 --provision }
+        - churros_always: { test_name: elements/caagilecentral --provision }
+        - churros_always: { test_name: elements/campaignmonitor --provision }
+        - churros_always: { test_name: elements/campaignmonitor--apikey --provision }
+        - churros_always: { test_name: elements/chargebee --provision }
+        - churros_always: { test_name: elements/chargify --provision }
+        - churros_always: { test_name: elements/cherwell --provision }
+        - churros_always: { test_name: elements/ciscospark --provision }
+        - churros_always: { test_name: elements/closeio --provision }
+        - churros_always: { test_name: elements/clover --provision }
+        - churros_always: { test_name: elements/concur --provision }
+        - churros_always: { test_name: elements/connectwisecrm --provision }
+        - churros_always: { test_name: elements/connectwisecrmrest --provision }
+        - churros_always: { test_name: elements/connectwisehd --provision }
+        - churros_always: { test_name: elements/constantcontact --provision }
+        - churros_always: { test_name: elements/desk --provision }
+        - churros_always: { test_name: elements/docushareflex --provision }
+        - churros_always: { test_name: elements/docusign --provision }
+        - churros_always: { test_name: elements/docusign--password --provision }
+        - churros_always: { test_name: elements/dropbox --provision }
+        - churros_always: { test_name: elements/dropboxbusiness --provision }
+        - churros_always: { test_name: elements/dropboxbusinessv2 --provision }
+        - churros_always: { test_name: elements/dropboxbusinessv2--members --provision }
+        - churros_always: { test_name: elements/dropboxv2 --provision }
+        - churros_always: { test_name: elements/dynamics365fo --provision }
+        - churros_always: { test_name: elements/dynamicscrmadfs --provision }
+        - churros_always: { test_name: elements/dynamicscrmadfs--oauth2 --provision }
+        - churros_always: { test_name: elements/dynamicsnavisionerp --provision }
+        - churros_always: { test_name: elements/economic --provision }
+        - churros_always: { test_name: elements/ecwid --provision }
+        - churros_always: { test_name: elements/ecwid--custom --provision }
+        - churros_always: { test_name: elements/egnyte --provision }
+        - churros_always: { test_name: elements/eloqua --provision, exclude: true }
+        - churros_always: { test_name: elements/epages --provision }
+        - churros_always: { test_name: elements/etsy --provision }
+        - churros_always: { test_name: elements/eventmobiv1 --provision }
+        - churros_always: { test_name: elements/evernote --provision, exclude: true }
+        - churros_always: { test_name: elements/expensify --provision }
+        - churros_always: { test_name: elements/facebookleadads --provision }
+        - churros_always: { test_name: elements/facebooksocial --provision }
+        - churros_always: { test_name: elements/facebookworkplace --provision }
+        - churros_always: { test_name: elements/fieldawarev2 --provision }
+        - churros_always: { test_name: elements/fieldserviceedge --provision }
+        - churros_always: { test_name: elements/firstadvantage --provision }
+        - churros_always: { test_name: elements/fortnox --provision, exclude: true } # skipped in onepass
+        - churros_always: { test_name: elements/freshbooks --provision }
+        - churros_always: { test_name: elements/freshbooksv2 --provision }
+        - churros_always: { test_name: elements/freshdeskv2 --provision }
+        - churros_always: { test_name: elements/freshservice --provision }
+        - churros_always: { test_name: elements/globalmeet --provision }
+        - churros_always: { test_name: elements/gmail --provision }
+        - churros_always: { test_name: elements/gooddata --provision }
+        - churros_always: { test_name: elements/googleadwords --provision }
+        - churros_always: { test_name: elements/googleanalytics --provision }
+        - churros_always: { test_name: elements/googlecalendar --provision }
+        - churros_always: { test_name: elements/googledrive --provision }
+        - churros_always: { test_name: elements/googlesheets --provision }
+        - churros_always: { test_name: elements/googlesheetsv4 --provision }
+        - churros_always: { test_name: elements/googlesuite --provision }
+        - churros_always: { test_name: elements/gotowebinar --provision }
+        - churros_always: { test_name: elements/greatplains --provision }
+        - churros_always: { test_name: elements/greenhouse --provision }
+        - churros_always: { test_name: elements/himss --provision }
+        - churros_always: { test_name: elements/hireright --provision }
+        - churros_always: { test_name: elements/hootsuite --provision }
+        - churros_always: { test_name: elements/hubspot --provision }
+        - churros_always: { test_name: elements/hubspotcrm --provision }
+        - churros_always: { test_name: elements/hubspotcrm--apiKey --provision }
+        - churros_always: { test_name: elements/icontact --provision }
+        - churros_always: { test_name: elements/infusionsoftcrm --provision }
+        - churros_always: { test_name: elements/infusionsoftecommerce --provision }
+        - churros_always: { test_name: elements/infusionsofterp --provision }
+        - churros_always: { test_name: elements/infusionsoftmarketing --provision }
+        - churros_always: { test_name: elements/infusionsoftrest --provision }
+        - churros_always: { test_name: elements/insightly --provision }
+        - churros_always: { test_name: elements/intacct --provision }
+        - churros_always: { test_name: elements/intercom --provision }
+        - churros_always: { test_name: elements/jira --provision }
+        - churros_always: { test_name: elements/kissmetrics --provision }
+        - churros_always: { test_name: elements/linkedin --provision }
+        - churros_always: { test_name: elements/lithiumlsw --provision }
+        - churros_always: { test_name: elements/magento --provision }
+        - churros_always: { test_name: elements/magentosoapv19 --provision }
+        - churros_always: { test_name: elements/magentov20 --provision }
+        - churros_always: { test_name: elements/magentov20--oauth1 --provision }
+        - churros_always: { test_name: elements/mailchimpv3 --provision }
+        - churros_always: { test_name: elements/mailjet --provision }
+        - churros_always: { test_name: elements/mailjetmarketing --provision }
+        - churros_always: { test_name: elements/marketo --provision }
+        - churros_always: { test_name: elements/maximizer --provision, exclude: true }
+        - churros_always: { test_name: elements/microsoftgraph --provision }
+        - churros_always: { test_name: elements/mixpanel --provision }
+        - churros_always: { test_name: elements/mysql --provision }
+        - churros_always: { test_name: elements/namely --provision }
+        - churros_always: { test_name: elements/netsuitecrmv2 --provision }
+        - churros_always: { test_name: elements/netsuitecrmv2--customAuth --provision }
+        - churros_always: { test_name: elements/netsuiteerpv2 --provision }
+        - churros_always: { test_name: elements/netsuitefinancev2 --provision }
+        - churros_always: { test_name: elements/netsuitehcv2 --provision }
+        - churros_always: { test_name: elements/onedrive --provision }
+        - churros_always: { test_name: elements/onedrivebusiness --provision }
+        - churros_always: { test_name: elements/onedrivev2 --provision }
+        - churros_always: { test_name: elements/onenote --provision }
+        - churros_always: { test_name: elements/oraclesalescloud --provision }
+        - churros_always: { test_name: elements/orderful --provision }
+        - churros_always: { test_name: elements/outlookemail --provision }
+        - churros_always: { test_name: elements/pardot --provision }
+        - churros_always: { test_name: elements/pardot--events --provision }
+        - churros_always: { test_name: elements/paypalv2 --provision }
+        - churros_always: { test_name: elements/paypalv2--sandbox --provision }
+        - churros_always: { test_name: elements/pipedrive --provision }
+        - churros_always: { test_name: elements/pipedrive--accessToken --provision }
+        - churros_always: { test_name: elements/plaid --provision }
+        - churros_always: { test_name: elements/plaid--accessToken --provision }
+        - churros_always: { test_name: elements/postgresql --provision }
+        - churros_always: { test_name: elements/quickbase --provision }
+        - churros_always: { test_name: elements/quickbooks --provision }
+        - churros_always: { test_name: elements/quickbooks--mergeId --provision }
+        - churros_always: { test_name: elements/quickbooks--oauth2 --provision }
+        - churros_always: { test_name: elements/quickbooksonprem --provision }
+        - churros_always: { test_name: elements/readytalk --provision }
+        - churros_always: { test_name: elements/readytalkilluminate --provision }
+        - churros_always: { test_name: elements/recurly --provision }
+        - churros_always: { test_name: elements/revel --provision }
+        - churros_always: { test_name: elements/sage200 --provision }
+        - churros_always: { test_name: elements/sagecrm --provision }
+        - churros_always: { test_name: elements/sagelive --provision }
+        - churros_always: { test_name: elements/sagelivev1 --provision }
+        - churros_always: { test_name: elements/sageoneuk --provision }
+        - churros_always: { test_name: elements/sageoneus --provision }
+        - churros_always: { test_name: elements/sailthru --provision }
+        - churros_always: { test_name: elements/salescloud --provision }
+        - churros_always: { test_name: elements/salesforcebylaunchbi --provision }
+        - churros_always: { test_name: elements/salesforcemarketingcloud --provision }
+        - churros_always: { test_name: elements/sapanywhere --provision }
+        - churros_always: { test_name: elements/sapbobylaunchbi --provision }
+        - churros_always: { test_name: elements/sapborestbylaunchbi --provision }
+        - churros_always: { test_name: elements/sapbusinessone --provision }
+        - churros_always: { test_name: elements/sapc4ccrm --provision }
+        - churros_always: { test_name: elements/sapc4chd --provision }
+        - churros_always: { test_name: elements/saps4bapi --provision }
+        - churros_always: { test_name: elements/saps4hanacloud --provision }
+        - churros_always: { test_name: elements/sendgrid --provision }
+        - churros_always: { test_name: elements/sendoso --provision }
+        - churros_always: { test_name: elements/servicecloud --provision }
+        - churros_always: { test_name: elements/servicemax --provision }
+        - churros_always: { test_name: elements/servicenow --provision }
+        - churros_always: { test_name: elements/servicenowoauth --provision }
+        - churros_always: { test_name: elements/sfdc --provision }
+        - churros_always: { test_name: elements/sfdc--oauth2Password --provision, exclude: true }
+        - churros_always: { test_name: elements/sfdcdocuments --provision }
+        - churros_always: { test_name: elements/sfdclibraries --provision }
+        - churros_always: { test_name: elements/sfdcservicecloud --provision }
+        - churros_always: { test_name: elements/sftp --provision }
+        - churros_always: { test_name: elements/sharefile --provision }
+        - churros_always: { test_name: elements/sharepoint --provision }
+        - churros_always: { test_name: elements/shopify --provision }
+        - churros_always: { test_name: elements/slack --provision }
+        - churros_always: { test_name: elements/smartrecruiters --provision }
+        - churros_always: { test_name: elements/smartrecruiters--password --provision }
+        - churros_always: { test_name: elements/sqlserver --provision }
+        - churros_always: { test_name: elements/square --provision }
+        - churros_always: { test_name: elements/stripe --provision }
+        - churros_always: { test_name: elements/stripe--apikey --provision }
+        - churros_always: { test_name: elements/successfactors --provision }
+        - churros_always: { test_name: elements/sugarcrmv2 --provision }
+        - churros_always: { test_name: elements/syncplicity --provision }
+        - churros_always: { test_name: elements/tableaubylaunchbi --provision }
+        - churros_always: { test_name: elements/taleobusiness --provision }
+        - churros_always: { test_name: elements/taxify --provision }
+        - churros_always: { test_name: elements/terminus --provision }
+        - churros_always: { test_name: elements/twiliov2 --provision }
+        - churros_always: { test_name: elements/twitter --provision }
+        - churros_always: { test_name: elements/typeform --provision }
+        - churros_always: { test_name: elements/volusion --provision }
+        - churros_always: { test_name: elements/vsts --provision }
+        - churros_always: { test_name: elements/weebly --provision }
+        - churros_always: { test_name: elements/woocommerce --provision }
+        - churros_always: { test_name: elements/woocommercerest --provision }
+        - churros_always: { test_name: elements/workday --provision }
+        - churros_always: { test_name: elements/wrike --provision }
+        - churros_always: { test_name: elements/wufoo --provision }
+        - churros_always: { test_name: elements/xero --provision }
+        - churros_always: { test_name: elements/xero--partner --provision }
+        - churros_always: { test_name: elements/xero--private --provision }
+        - churros_always: { test_name: elements/zendesk --provision }
+        - churros_always: { test_name: elements/zendesk--oauthtest --provision }
+        - churros_always: { test_name: elements/zendesk--oauthtest-non-default --provision }
+        - churros_always: { test_name: elements/zohocrm --provision }
+        - churros_always: { test_name: elements/zohocrmv2 --provision }
+        - churros_always: { test_name: elements/zuora --provision }
+        - churros_always: { test_name: elements/coupa --provision }
+        - churros_always: { test_name: elements/adpworkforcenow --provision }
+        - churros-provisioning-rules
 
   churros_tests_1:
     <<: *churros-build-setup
@@ -491,3 +713,10 @@ workflows:
           <<: *testjob
       - handle_all_pass:
           <<: *wrapupjob
+provisioning_tests:
+    jobs:
+      - workflow-setup:
+            <<: *initialjob
+
+      - churros_provisioning_test:
+            <<: *testjob
