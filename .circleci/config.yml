@@ -564,6 +564,11 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/marketo}
+      - churros: { test_name: elements/brighttalk }
+      - churros: { test_name: elements/sendgrid }
+      - churros: { test_name: elements/globalmeet }
+      - churros: { test_name: elements/autotaskhelpdesk }
+      - churros: { test_name: elements/salesforcemarketingcloud }
       - churros-rules
 
   churros_tests_5:
@@ -571,7 +576,11 @@ jobs:
     parallelism: 1
     steps:
       - churros-setup
+      - churros: { test_name: elements/desk, exclude: true  }
       - churros: { test_name: elements/dynamicscrmadfs }
+      - churros: { test_name: elements/dynamics365fo, exclude: true  }
+      - churros: { test_name: elements/docusign }
+      - churros: { test_name: elements/maximizer }
       - churros-rules
 
   churros_tests_6:
@@ -580,7 +589,12 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/sapc4chd }
-      - churros: { test_name: elements/taleobusiness, exclude: true}
+      - churros: { test_name: elements/netsuitehcv2 }
+      - churros: { test_name: elements/ciscospark }
+      - churros: { test_name: elements/zuorav2 }
+      - churros: { test_name: elements/acuityscheduling }
+      - churros: { test_name: elements/infusionsoftcrm }
+      - churros: { test_name: elements/taleobusiness, exclude: true }
       - churros: { test_name: elements/stripe }
       - churros-rules
 
@@ -588,8 +602,8 @@ jobs:
     <<: *churros-build-setup
     steps:
       - churros-setup
-      - churros: { test_name: elements/pardot, exclude: true}
-      - churros: { test_name: elements/mailchimpv3 } 
+      - churros: { test_name: elements/intacct}
+
       - churros-rules
 
   churros_tests_8:
@@ -597,8 +611,10 @@ jobs:
     parallelism: 1
     steps:
       - churros-setup
-      - churros: { test_name: elements/salesforcemarketingcloud }
-      - churros: { test_name: elements/concur, exclude: true  }    
+      - churros: { test_name: elements/netsuitehcv2 }
+      - churros: { test_name: elements/bigcommerce--custom }
+      - churros: { test_name: elements/concur, exclude: true }
+      - churros: { test_name: elements/zendesk }
       - churros-rules
   churros_tests_9:
     <<: *churros-build-setup
@@ -607,6 +623,9 @@ jobs:
       - churros-setup
       - churros: { test_name: elements/sapc4ccrm }
       - churros: { test_name: elements/netsuitehcv2 }
+      - churros: { test_name: elements/smartrecruiters }
+      - churros: { test_name: elements/sfdcdocuments, exclude: true }
+      - churros: { test_name: elements/sfdclibraries, exclude: true  }
       - churros: { test_name: elements/successfactors, exclude: true }
       - churros-rules
 
@@ -615,10 +634,8 @@ jobs:
     parallelism: 1
     steps:
       - churros-setup
-      - churros: { test_name: elements/brighttalk }
-      - churros: { test_name: elements/sendgrid }
-      - churros: { test_name: elements/globalmeet }
-      - churros: { test_name: elements/autotaskhelpdesk }
+      - churros: { test_name: elements/box }
+
       - churros-rules
   churros_tests_12:
     <<: *churros-build-setup
@@ -626,18 +643,25 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/eloqua}
+      - churros: { test_name: elements/infusionsoftecommerce }
       - churros-rules
   churros_tests_11:
     <<: *churros-build-setup
     parallelism: 1
     steps:
       - churros-setup
+      - churros: { test_name: elements/pardot, exclude: true}
+      - churros: { test_name: elements/mailchimpv3 }
+      - churros: { test_name: elements/twiliov2 }
       - churros: { test_name: elements/chargebee }
       - churros: { test_name: elements/kissmetrics }
       - churros: { test_name: elements/taxify }
+      - churros: { test_name: elements/slack }
       - churros: { test_name: elements/sailthru }
       - churros: { test_name: elements/eventmobiv1 }
       - churros: { test_name: elements/expensify}
+      - churros: { test_name: elements/freshdeskv2 }
+      - churros: { test_name: elements/sharefile}
       - churros-rules
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
