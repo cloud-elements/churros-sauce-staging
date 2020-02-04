@@ -302,7 +302,7 @@ jobs:
       - store_artifacts:
           path: ~/qaAutomation/test-results/metrics-results
  
- churros_provisioning_test:
+  churros_provisioning_test:
     <<: *churros-build-setup
     steps:
         - churros-setup
