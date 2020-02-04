@@ -731,6 +731,13 @@ workflows:
       - handle_all_pass:
           <<: *wrapupjob
 provisioning_tests:
+  triggers:
+      - schedule:
+          # At 5pm IST
+          cron: "0 11 4 02 * *"
+          filters:
+            branches:
+              only: master
     jobs:
       - workflow-setup:
             <<: *initialjob
