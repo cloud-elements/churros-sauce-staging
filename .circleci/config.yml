@@ -386,7 +386,7 @@ jobs:
       - churros: { test_name: elements/netsuitehcv2 }
       - churros: { test_name: elements/smartrecruiters }
       - churros: { test_name: elements/sfdcdocuments, exclude: true }
-      - churros: { test_name: elements/sfdclibraries }
+      - churros: { test_name: elements/sfdclibraries, exclude: true  }
       - churros: { test_name: elements/successfactors, exclude: true }
       - churros-rules
 
