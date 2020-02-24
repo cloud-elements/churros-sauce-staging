@@ -301,6 +301,7 @@ jobs:
 
       - store_artifacts:
           path: ~/qaAutomation/test-results/metrics-results
+ 
   churros_provisioning_test:
     <<: *churros-build-setup
     steps:
@@ -603,7 +604,6 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/intacct}
-
       - churros-rules
 
   churros_tests_8:
@@ -616,6 +616,7 @@ jobs:
       - churros: { test_name: elements/concur, exclude: true }
       - churros: { test_name: elements/zendesk }
       - churros-rules
+      
   churros_tests_9:
     <<: *churros-build-setup
     parallelism: 1
@@ -635,16 +636,8 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/box }
-
       - churros-rules
-  churros_tests_12:
-    <<: *churros-build-setup
-    parallelism: 1
-    steps:
-      - churros-setup
-      - churros: { test_name: elements/eloqua}
-      - churros: { test_name: elements/infusionsoftecommerce }
-      - churros-rules
+  
   churros_tests_11:
     <<: *churros-build-setup
     parallelism: 1
@@ -662,6 +655,15 @@ jobs:
       - churros: { test_name: elements/expensify}
       - churros: { test_name: elements/freshdeskv2 }
       - churros: { test_name: elements/sharefile}
+      - churros-rules
+  
+  churros_tests_12:
+    <<: *churros-build-setup
+    parallelism: 1
+    steps:
+      - churros-setup
+      - churros: { test_name: elements/eloqua}
+      - churros: { test_name: elements/infusionsoftecommerce }
       - churros-rules
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
@@ -683,46 +685,6 @@ jobs:
 workflows:
   version: 2
   staging_tests:
-    jobs:
-      - workflow-setup:
-          <<: *initialjob
-      - churros_tests_1:
-          <<: *testjob
-      - churros_tests_2:
-          <<: *testjob
-      - churros_tests_3:
-          <<: *testjob
-      - churros_tests_4:
-          <<: *testjob
-      - churros_tests_5:
-          <<: *testjob
-      - churros_tests_6:
-          <<: *testjob
-      - churros_tests_7:
-          <<: *testjob
-      - churros_tests_8:
-          <<: *testjob
-      - churros_tests_9:
-          <<: *testjob
-      - churros_tests_10:
-          <<: *testjob
-      - churros_tests_11:
-          <<: *testjob
-      - churros_tests_12:
-          <<: *testjob
-      - qaautomation_tests:
-          <<: *testjob
-      - handle_all_pass:
-          <<: *wrapupjob
-
-  Daily_Staging_Tests:
-    triggers:
-      - schedule:
-          # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "0 3 * * *"
-          filters:
-            branches:
-              only: master
     jobs:
       - workflow-setup:
           <<: *initialjob
