@@ -651,7 +651,7 @@ jobs:
     steps:
       - churros-setup
       - churros: { test_name: elements/pardot, exclude: true}
-      - churros: { test_name: elements/mailchimpv3 }
+      - churros: { test_name: elements/mailchimpv3, exclude: true }
       - churros: { test_name: elements/twiliov2 }
       - churros: { test_name: elements/chargebee }
       - churros: { test_name: elements/kissmetrics }
