@@ -88,10 +88,13 @@ commands:
       - run:
           name: install 1password-cli
           command: |
-            curl -s -L -O https://raw.githubusercontent.com/cloud-elements/onepass/master/linux/op
-            chmod a+x op
-            ln -s $PWD/op /bin/op
-  
+            curl -o op https://cache.agilebits.com/dist/1P/op/pkg/v0.9.4/op_linux_amd64_v0.9.4.zip
+            unzip -o op
+            gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
+            gpg --verify op.sig op
+            ln -fs $PWD/op /bin/op
+            op --version
+
   install-node:
     steps:
       - run:
