@@ -582,7 +582,7 @@ jobs:
       - churros-setup
       - churros: { test_name: elements/desk, exclude: true  }
       - churros: { test_name: elements/dynamicscrmadfs }
-      - churros: { test_name: elements/dynamics365fo }
+      - churros: { test_name: elements/dynamics365fo, exclude: true }
       - churros: { test_name: elements/docusign }
       - churros: { test_name: elements/maximizer }
       - churros: { test_name: elements/icontact }
