@@ -101,7 +101,10 @@ commands:
           name: install node version
           command: |
             . ~/.nvm/nvm.sh
+            nvm --version
             nvm install 10.18.0 && nvm alias default 10.18.0
+            rm -rf /usr/bin/chromedriver
+            wget -q "https://chromedriver.storage.googleapis.com/81.0.4044.20/chromedriver_linux64.zip" -O /tmp/chromedriver.zip && unzip /tmp/chromedriver.zip -d /usr/bin/ && rm -rf /tmp/chromedriver.zip
 
   stop-and-fix:
     steps:
