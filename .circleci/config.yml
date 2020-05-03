@@ -208,6 +208,7 @@ jobs:
                 npm run globalinstall
                 chmod -R a+rwx ../churros
                 npm install -g
+                npm install -f -g chromedriver@81.0.0
       - save_cache:
           key: v2-dep-{{ .Branch }}-{{ epoch }}
           paths:
