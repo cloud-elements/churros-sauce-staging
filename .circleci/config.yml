@@ -665,7 +665,7 @@ jobs:
       - churros: { test_name: elements/eventmobiv1, exclude: true }
       - churros: { test_name: elements/expensify}
       - churros: { test_name: elements/freshdeskv2 }
-      - churros: { test_name: elements/sharefile}
+      - churros: { test_name: elements/sharefile, exclude: true}
       - churros-rules   
       
   churros_tests_12:
