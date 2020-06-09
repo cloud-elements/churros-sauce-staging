@@ -574,7 +574,7 @@ jobs:
       - churros: { test_name: elements/marketo}
       - churros: { test_name: elements/brighttalk }
       - churros: { test_name: elements/sendgrid }
-      - churros: { test_name: elements/globalmeet }
+      - churros: { test_name: elements/globalmeet, exclude: true }
       - churros: { test_name: elements/autotaskhelpdesk }
       - churros: { test_name: elements/salesforcemarketingcloud }
       - churros-rules
