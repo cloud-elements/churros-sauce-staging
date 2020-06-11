@@ -10,7 +10,7 @@ x-aliases:
       environment:
         CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
         CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
-        ENVIRONMENT: stg
+        ENVIRONMENT: $CHURROS_ENV
       docker:
         - image: cloudelements/churros-sauce:latest
           auth:
@@ -22,7 +22,7 @@ x-aliases:
   - fltr: &fltr
       filters:
         branches:
-          only: master        
+          only: FRAN-293-trial        
   - initialjob: &initialjob
       <<: *ctx
       <<: *fltr
@@ -140,11 +140,11 @@ commands:
       - run:
           when: on_fail
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh FAIL stg churros-provisioning circleci NOT
+          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh FAIL $CHURROS_ENV churros-provisioning circleci NOT
       - run:
           when: on_success
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh PASS stg churros-provisioning circleci NOT
+          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh PASS $CHURROS_ENV churros-provisioning circleci NOT
       - store_test_results:
           path: /tmp/circleci-test-results
       # Save artifacts
@@ -158,11 +158,11 @@ commands:
       - run:
           when: on_fail
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh FAIL stg churros circleci
+          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh FAIL $CHURROS_ENV churros circleci
       - run:
           when: on_success
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh PASS stg churros circleci
+          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh PASS $CHURROS_ENV churros circleci
       - store_test_results:
           path: /tmp/circleci-test-results
       # Save artifacts
@@ -179,7 +179,7 @@ jobs:
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
-      ENVIRONMENT: stg
+      ENVIRONMENT: $CHURROS_ENV
     docker:
       - image: cloudelements/churros-sauce
         auth:
@@ -288,11 +288,11 @@ jobs:
       - run:
           when: on_fail
           name: send notifications for test results
-          command: ~/churros-sauce-staging/circleci/notif_test_result.sh FAIL stg qaAutomation circleci
+          command: ~/churros-sauce-staging/circleci/notif_test_result.sh FAIL $CHURROS_ENV qaAutomation circleci
       - run:
           when: on_success
           name: send notifications for test results
-          command: ~/churros-sauce-staging/circleci/notif_test_result.sh PASS stg qaAutomation circleci
+          command: ~/churros-sauce-staging/circleci/notif_test_result.sh PASS $CHURROS_ENV qaAutomation circleci
 
       # store metrics results
       - run:
@@ -450,7 +450,7 @@ jobs:
         - churros_always: { test_name: elements/pipedrive--accessToken --provision }
         - churros_always: { test_name: elements/plaid --provision }
         - churros_always: { test_name: elements/plaid--accessToken --provision }
-        - churros_always: { test_name: elements/postgresql --provision }
+        - churros_always: { test_name: elements/po$CHURROS_ENVresql --provision }
         - churros_always: { test_name: elements/quickbase --provision }
         - churros_always: { test_name: elements/quickbooks --provision }
         - churros_always: { test_name: elements/quickbooks--mergeId --provision }
