@@ -93,9 +93,6 @@ commands:
       - run:
           name: install 1password-cli
           command: |
-            echo $CHURROS_ENV
-            echo $ENVIRONMENT
-            echo "$(CHURROS_ENV) == << pipeline.parameters.CHURROS_ENV >>"
             curl -o op https://cache.agilebits.com/dist/1P/op/pkg/v0.9.4/op_linux_amd64_v0.9.4.zip
             unzip -o op
             gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
@@ -148,11 +145,11 @@ commands:
       - run:
           when: on_fail
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh FAIL $CHURROS_ENV churros-provisioning circleci NOT
+          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh FAIL $ENVIRONMENT churros-provisioning circleci NOT
       - run:
           when: on_success
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh PASS $CHURROS_ENV churros-provisioning circleci NOT
+          command: ~/cloud-elements/churros-sauce/circleci/notif_test_result.sh PASS $ENVIRONMENT churros-provisioning circleci NOT
       - store_test_results:
           path: /tmp/circleci-test-results
       # Save artifacts
@@ -166,11 +163,11 @@ commands:
       - run:
           when: on_fail
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh FAIL $CHURROS_ENV churros circleci
+          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh FAIL $ENVIRONMENT churros circleci
       - run:
           when: on_success
           name: send notifications for test results
-          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh PASS $CHURROS_ENV churros circleci
+          command: ~/cloud-elements/churros-sauce-staging/circleci/notif_test_result.sh PASS $ENVIRONMENT churros circleci
       - store_test_results:
           path: /tmp/circleci-test-results
       # Save artifacts
@@ -187,7 +184,7 @@ jobs:
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
-      ENVIRONMENT: ${CHURROS_ENV}
+      ENVIRONMENT: ${ENVIRONMENT}
     docker:
       - image: cloudelements/churros-sauce
         auth:
@@ -259,7 +256,7 @@ jobs:
       - run:
           name: Start test container
           command: |
-            docker run -it -d -e CHURROS_URL=staging.cloud-elements.com -e CHURROS_ENV=staging --name qa-auto cloudelements/qa-automation:latest
+            docker run -it -d -e CHURROS_URL=staging.cloud-elements.com -e CHURROS_ENV=$ENVIRONMENT --name qa-auto cloudelements/qa-automation:latest
 
       - run:
           name: Copy latest repo into test container
@@ -296,11 +293,11 @@ jobs:
       - run:
           when: on_fail
           name: send notifications for test results
-          command: ~/churros-sauce-staging/circleci/notif_test_result.sh FAIL $CHURROS_ENV qaAutomation circleci
+          command: ~/churros-sauce-staging/circleci/notif_test_result.sh FAIL $ENVIRONMENT qaAutomation circleci
       - run:
           when: on_success
           name: send notifications for test results
-          command: ~/churros-sauce-staging/circleci/notif_test_result.sh PASS $CHURROS_ENV qaAutomation circleci
+          command: ~/churros-sauce-staging/circleci/notif_test_result.sh PASS $ENVIRONMENT qaAutomation circleci
 
       # store metrics results
       - run:
