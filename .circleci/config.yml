@@ -733,46 +733,32 @@ workflows:
           <<: *testjob
       - handle_all_pass:
           <<: *wrapupjob
+  jobs:
+    staging-tests:
+      steps:
+        - run:
+            name: Trigger Daily Staging tests
+            command: |
+              curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"master","build_parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce?circle-token=${CIRCLE_TOKEN}"
+
+    production-tests:
+      steps:
+        - run:
+            name: Trigger Daily Production tests
+            command: |
+              curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"master","build_parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce?circle-token=${CIRCLE_TOKEN}"
+
 
   Daily_Staging_Tests:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "0 3 * * *"
+          cron: "10 12 * * *"
           filters:
             branches:
               only: master
     jobs:
-      - workflow-setup:
-          <<: *initialjob
-      - churros_tests_1:
-          <<: *testjob
-      - churros_tests_2:
-          <<: *testjob
-      - churros_tests_3:
-          <<: *testjob
-      - churros_tests_4:
-          <<: *testjob
-      - churros_tests_5:
-          <<: *testjob
-      - churros_tests_6:
-          <<: *testjob
-      - churros_tests_7:
-          <<: *testjob
-      - churros_tests_8:
-          <<: *testjob
-      - churros_tests_9:
-          <<: *testjob
-      - churros_tests_10:
-          <<: *testjob
-      - churros_tests_11:
-          <<: *testjob
-      - churros_tests_12:
-          <<: *testjob
-      - qaautomation_tests:
-          <<: *testjob
-      - handle_all_pass:
-          <<: *wrapupjob
+        - staging-tests
 provisioning_tests:
   triggers:
       - schedule:
