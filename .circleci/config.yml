@@ -95,7 +95,6 @@ commands:
           command: |
             echo $CHURROS_ENV
             echo $ENVIRONMENT
-            echo << pipeline.parameters.CHURROS_ENV >>
             echo "$(CHURROS_ENV) == << pipeline.parameters.workingdir >>"
 
   install-1pass:
