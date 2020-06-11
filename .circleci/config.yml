@@ -1,6 +1,11 @@
 ####################
 ###### Aliases #####
 ####################
+
+parameters:
+  CHURROS_ENV:
+    type: string
+    default: "snp"
 x-aliases:
   ####### churros jobs setup ########
   - churros-build-setup: &churros-build-setup
@@ -697,10 +702,6 @@ jobs:
 
 workflows:
   version: 2.1
-  parameters:
-    CHURROS_ENV:
-      type: string
-      default: "snp"
   staging_tests:
     jobs:
       - workflow-setup:
