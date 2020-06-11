@@ -697,6 +697,10 @@ jobs:
 
 workflows:
   version: 2.1
+  parameters:
+    CHURROS_ENV:
+      type: string
+      default: "snp"
   staging_tests:
     jobs:
       - workflow-setup:
