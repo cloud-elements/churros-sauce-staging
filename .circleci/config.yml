@@ -96,7 +96,7 @@ commands:
           command: |
             echo $CHURROS_ENV
             echo $ENVIRONMENT
-            echo "$(CHURROS_ENV) == << pipeline.parameters.workingdir >>"
+            echo "$(CHURROS_ENV) == << pipeline.parameters.CHURROS_ENV >>"
             curl -o op https://cache.agilebits.com/dist/1P/op/pkg/v0.9.4/op_linux_amd64_v0.9.4.zip
             unzip -o op
             gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
