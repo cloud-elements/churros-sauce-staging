@@ -88,7 +88,16 @@ commands:
         default: false
     steps:
         - churros: { test_name: << parameters.test_name >>, exclude: << parameters.exclude >>,  action: always }
-  
+  getEnvs:
+    steps:
+      - run:
+          name: get getEnvs
+          command: |
+            echo $CHURROS_ENV
+            echo $ENVIRONMENT
+            echo << pipeline.parameters.CHURROS_ENV >>
+            echo "$(CHURROS_ENV) == << pipeline.parameters.workingdir >>"
+
   install-1pass:
     steps:
       - run:
