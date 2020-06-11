@@ -88,20 +88,15 @@ commands:
         default: false
     steps:
         - churros: { test_name: << parameters.test_name >>, exclude: << parameters.exclude >>,  action: always }
-  getEnvs:
-    steps:
-      - run:
-          name: get getEnvs
-          command: |
-            echo $CHURROS_ENV
-            echo $ENVIRONMENT
-            echo "$(CHURROS_ENV) == << pipeline.parameters.workingdir >>"
 
   install-1pass:
     steps:
       - run:
           name: install 1password-cli
           command: |
+            echo $CHURROS_ENV
+            echo $ENVIRONMENT
+            echo "$(CHURROS_ENV) == << pipeline.parameters.workingdir >>"
             curl -o op https://cache.agilebits.com/dist/1P/op/pkg/v0.9.4/op_linux_amd64_v0.9.4.zip
             unzip -o op
             gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
