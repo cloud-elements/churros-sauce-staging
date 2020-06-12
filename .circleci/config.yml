@@ -209,7 +209,7 @@ jobs:
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results/mocha
-      ENVIRONMENT: ${ENVIRONMENT}
+      ENVIRONMENT: << pipeline.parameters.CHURROS_ENV >>
     docker:
       - image: cloudelements/churros-sauce
         auth:
@@ -763,7 +763,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "31 10 * * *"
+          cron: "33 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
@@ -775,7 +775,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "33 10 * * *"
+          cron: "35 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
