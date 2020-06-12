@@ -2,10 +2,10 @@
 ###### Aliases #####
 ####################
 
-parameters:
-  CHURROS_ENV:
-    type: string
-    default: << pipeline.parameters.CHURROS_ENV >>
+# parameters:
+#   CHURROS_ENV:
+#     type: string
+#     default: << pipeline.parameters.CHURROS_ENV >>
 x-aliases:
   ####### churros jobs setup ########
   - churros-build-setup: &churros-build-setup
@@ -763,7 +763,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "29 10 * * *"
+          cron: "31 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
@@ -775,7 +775,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "31 10 * * *"
+          cron: "33 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
