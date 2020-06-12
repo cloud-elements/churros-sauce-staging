@@ -187,7 +187,7 @@ jobs:
       - run:
           name: Trigger Staging Tests
           command: |
-                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"master","build_parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce-production?circle-token=${CIRCLE_TOKEN}"
+                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce-production?circle-token=${CIRCLE_TOKEN}"
 
   daily-prod-tests:
     docker:
@@ -199,7 +199,7 @@ jobs:
       - run:
           name: Trigger Staging Tests
           command: |
-                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"master","build_parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce-production?circle-token=${CIRCLE_TOKEN}"
+                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce-production?circle-token=${CIRCLE_TOKEN}"
 
 
   workflow-setup:
@@ -763,10 +763,10 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "20 09 * * *"
+          cron: "32 09 * * *"
           filters:
             branches:
-              only: master
+              only: FRAN-293-trial
     jobs:
       - daily-staging-tests
 
@@ -775,10 +775,10 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "25 09 * * *"
+          cron: "35 09 * * *"
           filters:
             branches:
-              only: master
+              only: FRAN-293-trial
     jobs:
       - daily-prod-tests
     
