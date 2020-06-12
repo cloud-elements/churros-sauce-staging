@@ -706,21 +706,7 @@ jobs:
       - churros: { test_name: elements/eloqua}
       - churros: { test_name: elements/infusionsoftecommerce }
       - churros-rules
-  staging-tests:
-    steps:
-      - run:
-          name: Trigger Daily Staging tests
-          command: |
-            curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"master","build_parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce?circle-token=${CIRCLE_TOKEN}"
-
-  production-tests:
-    steps:
-      - run:
-          name: Trigger Daily Production tests
-          command: |
-            curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"master","build_parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce?circle-token=${CIRCLE_TOKEN}"
-  
-  
+      
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
     docker:
@@ -772,7 +758,7 @@ workflows:
           <<: *testjob
       - handle_all_pass:
           <<: *wrapupjob
-          
+
   Daily_Staging_Tests:
     triggers:
       - schedule:
