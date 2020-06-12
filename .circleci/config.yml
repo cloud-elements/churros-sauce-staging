@@ -187,7 +187,7 @@ jobs:
       - run:
           name: Trigger Staging Tests
           command: |
-                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
+                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v2/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
 
   daily-prod-tests:
     docker:
@@ -197,9 +197,9 @@ jobs:
           password: $DOCKER_PASSWORD
     steps:
       - run:
-          name: Trigger Staging Tests
+          name: Trigger Prod Tests
           command: |
-                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v1.1/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
+                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v2/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
 
 
   workflow-setup:
