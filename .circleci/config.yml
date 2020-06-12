@@ -5,7 +5,7 @@
 parameters:
   CHURROS_ENV:
     type: string
-    default: "snp"
+    default: << pipeline.parameters.CHURROS_ENV >>
 x-aliases:
   ####### churros jobs setup ########
   - churros-build-setup: &churros-build-setup
@@ -281,7 +281,7 @@ jobs:
       - run:
           name: Start test container
           command: |
-            docker run -it -d -e CHURROS_URL=staging.cloud-elements.com -e CHURROS_ENV=$ENVIRONMENT --name qa-auto cloudelements/qa-automation:latest
+            docker run -it -d -e CHURROS_URL=<< pipeline.parameters.CHURROS_URL >> -e CHURROS_ENV=<< pipeline.parameters.CHURROS_ENV >> --name qa-auto cloudelements/qa-automation:latest
 
       - run:
           name: Copy latest repo into test container
@@ -763,7 +763,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "17 10 * * *"
+          cron: "29 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
@@ -775,7 +775,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "19 10 * * *"
+          cron: "31 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
