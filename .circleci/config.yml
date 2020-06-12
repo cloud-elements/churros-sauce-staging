@@ -706,7 +706,7 @@ jobs:
       - churros: { test_name: elements/eloqua}
       - churros: { test_name: elements/infusionsoftecommerce }
       - churros-rules
-      
+
   # it is expected that this job only runs if all tests pass
   handle_all_pass:
     docker:
@@ -763,7 +763,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "04 09 * * *"
+          cron: "20 09 * * *"
           filters:
             branches:
               only: master
@@ -775,7 +775,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "06 09 * * *"
+          cron: "25 09 * * *"
           filters:
             branches:
               only: master

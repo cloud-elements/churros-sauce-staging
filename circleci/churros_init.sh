@@ -3,7 +3,7 @@
 case "$1" in
   snapshot|snp)
     echo 'Initializing churros to run tests against snapshot...'
-    churros init --user 'churros@churros.com' --password 'elements1' --url 'https://snapshot.cloud-elements.com' --template ~/cloud-elements/churros-sauce/sauce.json --1pass --1pass-element all
+    churros init --user 'churros@churros.com' --password 'elements1' --url 'https://snapshot.cloud-elements.com' --template ~/cloud-elements/churros-sauce-staging/sauce.json --1pass --1pass-element all
   ;;
   staging|stg)
     echo 'Initializing churros to run tests against staging...'
