@@ -6,6 +6,9 @@ parameters:
   CHURROS_ENV:
     type: string
     default: "snp"
+  CHURROS_URL:
+    type: string
+    default: "snapshot.cloud-elements.com"
 x-aliases:
   ####### churros jobs setup ########
   - churros-build-setup: &churros-build-setup
