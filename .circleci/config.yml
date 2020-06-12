@@ -190,7 +190,7 @@ jobs:
       - run:
           name: Trigger Staging Tests
           command: |
-                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v2/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
+                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","parameters": {"CHURROS_ENV": "stg"}}' "https://circleci.com/api/v2/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
 
   daily-prod-tests:
     docker:
@@ -202,7 +202,7 @@ jobs:
       - run:
           name: Trigger Prod Tests
           command: |
-                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","build_parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v2/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
+                curl -X POST --header "Accept: application/json" --header "Content-Type: application/json" --data '{"branch":"FRAN-293-trial","parameters": {"CHURROS_ENV": "prod"}}' "https://circleci.com/api/v2/project/github/cloud-elements/churros-sauce-staging/pipeline?circle-token=${CIRCLE_TOKEN}"
 
 
   workflow-setup:
@@ -766,7 +766,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "34 10 * * *"
+          cron: "42 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
@@ -778,7 +778,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "36 10 * * *"
+          cron: "44 10 * * *"
           filters:
             branches:
               only: FRAN-293-trial
