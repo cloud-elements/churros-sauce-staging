@@ -778,7 +778,7 @@ workflows:
     triggers:
       - schedule:
           # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "44 10 * * *"
+          cron: "09 11 * * *"
           filters:
             branches:
               only: FRAN-293-trial
