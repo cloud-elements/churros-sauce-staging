@@ -772,45 +772,7 @@ workflows:
           <<: *testjob
       - handle_all_pass:
           <<: *wrapupjob
-  Daily_Staging_Tests:
-    triggers:
-      - schedule:
-          # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "10 12 * * *"
-          filters:
-            branches:
-              only: master
-    jobs:
-      - workflow-setup:
-          <<: *initialjob
-      - churros_tests_1:
-          <<: *testjob
-      - churros_tests_2:
-          <<: *testjob
-      - churros_tests_3:
-          <<: *testjob
-      - churros_tests_4:
-          <<: *testjob
-      - churros_tests_5:
-          <<: *testjob
-      - churros_tests_6:
-          <<: *testjob
-      - churros_tests_7:
-          <<: *testjob
-      - churros_tests_8:
-          <<: *testjob
-      - churros_tests_9:
-          <<: *testjob
-      - churros_tests_10:
-          <<: *testjob
-      - churros_tests_11:
-          <<: *testjob
-      - churros_tests_12:
-          <<: *testjob
-      - qaautomation_tests:
-          <<: *testjob
-      - handle_all_pass:
-          <<: *wrapupjob
+          
   Daily_Staging_Tests:
     triggers:
       - schedule:
