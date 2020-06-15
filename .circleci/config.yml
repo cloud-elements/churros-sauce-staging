@@ -728,11 +728,14 @@ jobs:
 
 
 workflows:
-  version: 2.1
-  staging_tests:
+  version: 2
+  snapshot_tests:
+    when: << pipeline.parameters.CHURROS_ENV >> == "snp"
     jobs:
       - workflow-setup:
           <<: *initialjob
+      - concurrency_tests_1:
+          <<: *testjob
       - churros_tests_1:
           <<: *testjob
       - churros_tests_2:
@@ -756,35 +759,83 @@ workflows:
       - churros_tests_11:
           <<: *testjob
       - churros_tests_12:
-          <<: *testjob
+          <<: *testjob    
       - qaautomation_tests:
           <<: *testjob
       - handle_all_pass:
           <<: *wrapupjob
 
-  Daily_Staging_Tests:
-    triggers:
-      - schedule:
-          # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "42 10 * * *"
-          filters:
-            branches:
-              only: FRAN-293-trial
+  staging_tests:
+    when: << pipeline.parameters.CHURROS_ENV >> == "stg"
     jobs:
-      - daily-staging-tests
+      - workflow-setup:
+          <<: *initialjob
+      - concurrency_tests_1:
+          <<: *testjob
+      - churros_tests_1:
+          <<: *testjob
+      - churros_tests_2:
+          <<: *testjob
+      - churros_tests_3:
+          <<: *testjob
+      - churros_tests_4:
+          <<: *testjob
+      - churros_tests_5:
+          <<: *testjob
+      - churros_tests_6:
+          <<: *testjob
+      - churros_tests_7:
+          <<: *testjob
+      - churros_tests_8:
+          <<: *testjob
+      - churros_tests_9:
+          <<: *testjob
+      - churros_tests_10:
+          <<: *testjob
+      - churros_tests_11:
+          <<: *testjob
+      - churros_tests_12:
+          <<: *testjob    
+      - qaautomation_tests:
+          <<: *testjob
+      - handle_all_pass:
+          <<: *wrapupjob
 
-
-  Daily_Prod_Tests:
-    triggers:
-      - schedule:
-          # Daily at 3am UTC /  8pm MST / 8:30am IST
-          cron: "09 11 * * *"
-          filters:
-            branches:
-              only: FRAN-293-trial
+  production_tests:
+    when: << pipeline.parameters.CHURROS_ENV >> == "prod"
     jobs:
-      - daily-prod-tests
-    
+      - workflow-setup:
+          <<: *initialjob
+      - concurrency_tests_1:
+          <<: *testjob
+      - churros_tests_1:
+          <<: *testjob
+      - churros_tests_2:
+          <<: *testjob
+      - churros_tests_3:
+          <<: *testjob
+      - churros_tests_4:
+          <<: *testjob
+      - churros_tests_5:
+          <<: *testjob
+      - churros_tests_6:
+          <<: *testjob
+      - churros_tests_7:
+          <<: *testjob
+      - churros_tests_8:
+          <<: *testjob
+      - churros_tests_9:
+          <<: *testjob
+      - churros_tests_10:
+          <<: *testjob
+      - churros_tests_11:
+          <<: *testjob
+      - churros_tests_12:
+          <<: *testjob    
+      - qaautomation_tests:
+          <<: *testjob
+      - handle_all_pass:
+          <<: *wrapupjob
 
 provisioning_tests:
   triggers:
