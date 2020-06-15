@@ -734,8 +734,6 @@ workflows:
     jobs:
       - workflow-setup:
           <<: *initialjob
-      - concurrency_tests_1:
-          <<: *testjob
       - churros_tests_1:
           <<: *testjob
       - churros_tests_2:
@@ -770,8 +768,6 @@ workflows:
     jobs:
       - workflow-setup:
           <<: *initialjob
-      - concurrency_tests_1:
-          <<: *testjob
       - churros_tests_1:
           <<: *testjob
       - churros_tests_2:
@@ -806,8 +802,6 @@ workflows:
     jobs:
       - workflow-setup:
           <<: *initialjob
-      - concurrency_tests_1:
-          <<: *testjob
       - churros_tests_1:
           <<: *testjob
       - churros_tests_2:
