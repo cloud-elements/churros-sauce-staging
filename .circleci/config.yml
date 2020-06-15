@@ -731,7 +731,7 @@ workflows:
   version: 2
   snapshot_tests:
     when: 
-      equal: ["snp", << pipeline.parameters.CHURROS_ENV]
+      equal: ["snp", << pipeline.parameters.CHURROS_ENV >>]
     jobs:
       - workflow-setup:
           <<: *initialjob
@@ -766,7 +766,7 @@ workflows:
 
   staging_tests:
     when: 
-      equal: ["stg", << pipeline.parameters.CHURROS_ENV]
+      equal: ["stg", << pipeline.parameters.CHURROS_ENV >>]
     jobs:
       - workflow-setup:
           <<: *initialjob
@@ -801,7 +801,7 @@ workflows:
 
   production_tests:
     when: 
-      equal: ["prod", << pipeline.parameters.CHURROS_ENV]
+      equal: ["prod", << pipeline.parameters.CHURROS_ENV >>]
     jobs:
       - workflow-setup:
           <<: *initialjob
